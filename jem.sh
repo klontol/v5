@@ -374,7 +374,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  Funny VPN  ********</b></font><br>
+<font color="red"><b>********  AutoScript VPN  ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
