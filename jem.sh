@@ -178,7 +178,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/raw/main/password"
+wget -O /etc/pam.d/common-password "https://github.com/Rerechan02/last/raw/main/password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
