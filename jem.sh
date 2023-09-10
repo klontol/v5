@@ -262,8 +262,8 @@ cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
 wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
-unzip funny.zip
-rm -fr funny.zip
+unzip menu.zip
+rm -fr menu.zip
 chmod +x *
 clear
 cd /usr/local/bin
