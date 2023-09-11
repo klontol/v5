@@ -1,16 +1,14 @@
 #!/bin/bash
-#Funnyvpn
-#Rerechan02
-#Rayzell25
-#Nuralfiya
-#em0zz
-#naravpn.com
-#indo-ssh.com
-#indossh
-#Skc
+# BOT INFO
+export CHATID="5795571992"
+export KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+IP=$(curl ifconfig.me);
+domain=$(cat /etc/xray/domain)
+date=$(date +"%Y-%m-%d")
 clear
-#=========================================================================================================================
-
+#=============================
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -25,6 +23,62 @@ echo "Script Already Installed"
 exit 1
 fi
 }
+
+run_izin() {
+apt install curl -y
+#link izin ip vps
+url_izin='https://raw.githubusercontent.com/Sartamp/ipkusu/main/ipvps'
+
+# Mendapatkan IP VPS saat ini
+ip_vps=$(curl -s ifconfig.me)
+
+# Mendapatkan isi file izin.txt dari URL
+izin=$(curl -s "$url_izin")
+
+# Memeriksa apakah konten izin.txt berhasil didapatkan
+if [[ -n "$izin" ]]; then
+  while IFS= read -r line; do
+    # Memisahkan nama VPS, IP VPS, dan tanggal kadaluwarsa
+    nama=$(echo "$line" | awk '{print $1}')
+    ipvps=$(echo "$line" | awk '{print $2}')
+    tanggal=$(echo "$line" | awk '{print $3}')
+
+    # Memeriksa apakah IP VPS saat ini cocok dengan IP VPS yang ada di izin.txt
+    if [[ "$ipvps" == "$ip_vps" ]]; then
+      echo "Nama VPS: $nama"
+      echo "IP VPS: $ipvps"
+      echo "Tanggal Kadaluwarsa: $tanggal"
+      break
+    fi
+  done <<< "$izin"
+
+  # Memeriksa apakah IP VPS ditemukan dalam izin.txt
+  if [[ "$ipvps" != "$ip_vps" ]]; then
+    echo "IP VPS tidak ditemukan dalam izin.txt"
+    exit 0
+  fi
+else
+  echo "Konten izin.txt tidak berhasil didapatkan dari URL"
+  exit 0
+fi
+clear
+}
+clear
+green='\e[0;32m'
+yell='\e[1;33m'
+tyblue='\e[1;36m'
+clear
+echo -e "${tyblue} Welcome To YogzVPN AutoScript......${NC} "
+sleep 2
+echo -e "[ ${green}INFO${NC} ] Preparing the install file"
+apt install git curl -y >/dev/null 2>&1
+echo -e "[ ${green}INFO${NC} ] installation file is ready"
+sleep 2
+sleep 3
+clear
+echo -e "${GREEN}Starting Installation............${NC}"
+sleep 1
+clear
 
 run_funny() {
 #Create Folder
@@ -515,24 +569,46 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
-echo " "
+echo -e ""
+TEXT="
+Detail Install Script
+==================================
+IP VPS: $ip_vps
+Domain: $(cat /etc/xray/domain)
+Waktu Install: $DATE2
+Client Name: $nama
+Expired: $tanggal
+==================================
+"
 clear
-echo -e "Intsall Berhasil dan lancar" 
-echo -e "" 
-echo -e "     <= Wajib di baca & lakukan =>" 
-echo -e "Port login VPS dari 22 di ganti ke 3303" 
-echo -e "karna kalo login vps make port 22 gampang kena brute force" 
-echo -e "" 
-echo -e "Untuk membuka panel AutoSC Masukan" 
-echo -e "perintah ( funny ) tanpa tanda kurung" 
-echo -e "" 
-read -p "Pres enter untuk reboot : " ieieie 
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+echo ""
+clear
+echo -e "
+Detail Install Script
+==================================
+IP VPS        : $ip_vps
+Domain        : $(cat /etc/xray/domain)
+Date & Time   : $DATE2
+Client Name   : $nama
+Expired       : $tanggal
+==================================
+     <= Wajib di baca & lakukan =>
+==================================
+Port login VPS dari 22 di ganti ke 3303
+karna kalo login vps make port 22 gamoang kena brute force
+Untuk membuka panel AutoSC Masukan
+perintah ( funny ) tanpa tanda kurung
+==================================
+"
+read -p "Pres enter untuk reboot : " ieieie
 touch /root/system
 reboot
 }
 
 run_pensi() {
 run_eula
+run_izin
 run_tools
 run_funny
 run_ayato
