@@ -56,7 +56,6 @@ run_izin() {
     exit
   fi
 }
-run_izin
 # // Checking Os Architecture
 if [[ $( uname -m | awk '{print $1}' ) == "x86_64" ]]; then
     echo -e "${OK} Your Architecture Is Supported ( ${green}$( uname -m )${NC} )"
@@ -666,8 +665,8 @@ touch /root/system
 reboot
 }
 
-run_eula
 run_izin
+run_eula
 run_domain
 run_tools
 run_funny
