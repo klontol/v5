@@ -1,7 +1,4 @@
 #!/bin/bash
-# Edition : Stable Edition V3.0
-# Auther  : Geo Project
-# (C) Copyright 2023
 # =========================================
 MYIP=$(wget -qO- ipinfo.io/ip);
 clear
@@ -38,7 +35,7 @@ RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
      -H "Content-Type: application/json" \
      --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
 echo "Host : $SUB_DOMAIN"
-echo "IP=" >> /var/lib/kyt/ipvps.conf
+echo "IP=" >> /var/lib/ah/ipvps.conf
 echo $SUB_DOMAIN > /etc/xray/domain
 echo $SUB_DOMAIN > /root/domain
 rm -f /root/cf.sh
