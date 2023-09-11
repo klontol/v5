@@ -178,7 +178,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/raw/main/password"
+wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/main/password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -519,14 +519,10 @@ echo " "
 clear
 echo -e "Intsall Berhasil dan lancar" 
 echo -e "" 
-echo -e "     <= Wajib di baca & lakukan =>" 
-echo -e "Port login VPS dari 22 di ganti ke 3303" 
-echo -e "karna kalo login vps make port 22 gampang kena brute force" 
-echo -e "" 
 echo -e "Untuk membuka panel AutoSC Masukan" 
-echo -e "perintah ( funny ) tanpa tanda kurung" 
+echo -e "perintah ( menu ) tanpa tanda kurung" 
 echo -e "" 
-read -p "Pres enter untuk reboot : " ieieie 
+read -p "Press enter untuk reboot : " ieieie 
 touch /root/system
 reboot
 }
