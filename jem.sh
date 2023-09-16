@@ -26,49 +26,43 @@ exit 1
 fi
 }
 
-run_funny() {
-#Create Folder
-mkdir /etc/slowdns
-mkdir /etc/xray
-mkdir /etc/websocket
-mkdir /etc/xray
-mkdir /etc/funny
-mkdir /etc/funny/trojan
-mkdir /etc/funny/vless
-mkdir /etc/funny/vmess
-mkdir /etc/funny/limit
-mkdir /etc/funny/socks5
-mkdir /etc/funny/limit/trojan
-mkdir /etc/funny/limit/vless
-mkdir /etc/funny/limit/vmess
-mkdir /etc/funny/limit/ssh
-mkdir /etc/funny/limit/sosck5
-mkdir /etc/funny/limit/socks5/ip
-mkdir /etc/funny/limit/socks5/quota
-mkdir /etc/funny/limit/ssh/ip
-mkdir /etc/funny/limit/trojan/ip
-mkdir /etc/funny/limit/trojan/quota
-mkdir /etc/funny/limit/vless/ip
-mkdir /etc/funny/limit/vless/quota
-mkdir /etc/funny/limit/vmess/ip
-mkdir /etc/funny/limit/vmess/quota
-mkdir /etc/funny/log
-mkdir /etc/funny/log/trojan
-mkdir /etc/funny/log/vless
-mkdir /etc/funny/log/vmess
-mkdir /etc/funny/log/ssh
-mkdir /etc/funny/log/socks5
-mkdir /etc/funny/cache
-mkdir /etc/funny/cache/trojan-tcp
-mkdir /etc/funny/cache/trojan-ws
-mkdir /etc/funny/cache/trojan-grpc
-mkdir /etc/funny/cache/vless-ws
-mkdir /etc/funny/cache/vless-grpc
-mkdir /etc/funny/cache/vmess-ws
-mkdir /etc/funny/cache/vmess-grpc
-mkdir /etc/funny/cache/vmess-ws-orbit
-mkdir /etc/funny/cache/vmess-ws-orbit1
-mkdir /etc/funny/cache/socks5
+run_izin() {
+apt install curl -y
+#link izin ip vps
+url_izin='https://raw.githubusercontent.com/SARTAMP/izin/main/ip'
+
+# Mendapatkan IP VPS saat ini
+ip_vps=$(curl -s ifconfig.me)
+
+# Mendapatkan isi file izin.txt dari URL
+izin=$(curl -s "$url_izin")
+
+# Memeriksa apakah konten izin.txt berhasil didapatkan
+if [[ -n "$izin" ]]; then
+  while IFS= read -r line; do
+    # Memisahkan nama VPS, IP VPS, dan tanggal kadaluwarsa
+    nama=$(echo "$line" | awk '{print $1}')
+    ipvps=$(echo "$line" | awk '{print $2}')
+    tanggal=$(echo "$line" | awk '{print $3}')
+
+    # Memeriksa apakah IP VPS saat ini cocok dengan IP VPS yang ada di izin.txt
+    if [[ "$ipvps" == "$ip_vps" ]]; then
+      echo "Nama VPS: $nama"
+      echo "IP VPS: $ipvps"
+      echo "Tanggal Kadaluwarsa: $tanggal"
+      break
+    fi
+  done <<< "$izin"
+
+  # Memeriksa apakah IP VPS ditemukan dalam izin.txt
+  if [[ "$ipvps" != "$ip_vps" ]]; then
+    echo "IP VPS tidak ditemukan dalam izin.txt"
+    exit 0
+  fi
+else
+  echo "Konten izin.txt tidak berhasil didapatkan dari URL"
+  exit 0
+fi
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
