@@ -262,8 +262,8 @@ cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
 wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
-unzip funny.zip
-rm -fr funny.zip
+unzip menu.zip
+rm -fr menu.zip
 chmod +x *
 clear
 cd /usr/local/bin
@@ -374,7 +374,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  Funny VPN  ********</b></font><br>
+<font color="red"><b>********  Yogz VPN  ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
@@ -517,14 +517,10 @@ history -c
 echo "1.2" > /home/ver
 echo " "
 clear
-echo -e "Intsall Berhasil dan lancar" 
-echo -e "" 
-echo -e "     <= Wajib di baca & lakukan =>" 
-echo -e "Port login VPS dari 22 di ganti ke 3303" 
-echo -e "karna kalo login vps make port 22 gampang kena brute force" 
+echo -e "Install Berhasil dan lancar"  
 echo -e "" 
 echo -e "Untuk membuka panel AutoSC Masukan" 
-echo -e "perintah ( funny ) tanpa tanda kurung" 
+echo -e "perintah ( menu ) tanpa tanda kurung" 
 echo -e "" 
 read -p "Pres enter untuk reboot : " ieieie 
 touch /root/system
