@@ -178,7 +178,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/raw/main/password"
+wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/Sartamp/v5/main/password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -285,7 +285,6 @@ clear
 cd
 # setting port ssh
 echo "Port 22" >>/etc/ssh/sshd_config
-echo "Port 3303" >>/etc/ssh/sshd_config
 # install dropbear
 apt -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
@@ -566,13 +565,13 @@ reboot
 }
 
 run_pensi() {
+run_asu
 run_eula
 run_tools
 run_funny
 run_ayato
 run_cantikva
 run_indo
-run_asu
 run_xiangling
 }
 
