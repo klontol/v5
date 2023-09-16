@@ -1,15 +1,5 @@
 #!/bin/bash
-#Funnyvpn
-#Rerechan02
-#Rayzell25
-#Nuralfiya
-#em0zz
-#naravpn.com
-#indo-ssh.com
-#indossh
-#Skc
 clear
-#=========================================================================================================================
 
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
