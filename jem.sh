@@ -263,8 +263,10 @@ rm -fr menu
 rm -fr /usr/sbin/menu
 wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
 unzip menu.zip
-rm -fr menu.zip
-chmod +x *
+chmod +x menu/*
+mv menu/* /usr/local/sbin
+rm -rf menu
+rm -rf menu.zip
 clear
 cd /usr/local/bin
 wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
