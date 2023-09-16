@@ -64,6 +64,51 @@ else
   exit 0
 fi
 clear
+
+run_funny() {
+#Create Folder
+mkdir /etc/slowdns
+mkdir /etc/xray
+mkdir /etc/websocket
+mkdir /etc/xray
+mkdir /etc/funny
+mkdir /etc/funny/trojan
+mkdir /etc/funny/vless
+mkdir /etc/funny/vmess
+mkdir /etc/funny/limit
+mkdir /etc/funny/socks5
+mkdir /etc/funny/limit/trojan
+mkdir /etc/funny/limit/vless
+mkdir /etc/funny/limit/vmess
+mkdir /etc/funny/limit/ssh
+mkdir /etc/funny/limit/sosck5
+mkdir /etc/funny/limit/socks5/ip
+mkdir /etc/funny/limit/socks5/quota
+mkdir /etc/funny/limit/ssh/ip
+mkdir /etc/funny/limit/trojan/ip
+mkdir /etc/funny/limit/trojan/quota
+mkdir /etc/funny/limit/vless/ip
+mkdir /etc/funny/limit/vless/quota
+mkdir /etc/funny/limit/vmess/ip
+mkdir /etc/funny/limit/vmess/quota
+mkdir /etc/funny/log
+mkdir /etc/funny/log/trojan
+mkdir /etc/funny/log/vless
+mkdir /etc/funny/log/vmess
+mkdir /etc/funny/log/ssh
+mkdir /etc/funny/log/socks5
+mkdir /etc/funny/cache
+mkdir /etc/funny/cache/trojan-tcp
+mkdir /etc/funny/cache/trojan-ws
+mkdir /etc/funny/cache/trojan-grpc
+mkdir /etc/funny/cache/vless-ws
+mkdir /etc/funny/cache/vless-grpc
+mkdir /etc/funny/cache/vmess-ws
+mkdir /etc/funny/cache/vmess-grpc
+mkdir /etc/funny/cache/vmess-ws-orbit
+mkdir /etc/funny/cache/vmess-ws-orbit1
+mkdir /etc/funny/cache/socks5
+clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
@@ -523,6 +568,7 @@ reboot
 
 run_pensi() {
 run_eula
+run_izin
 run_tools
 run_funny
 run_ayato
