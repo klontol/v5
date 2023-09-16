@@ -262,8 +262,8 @@ cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
 wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
-unzip funny.zip
-rm -fr funny.zip
+unzip menu.zip
+rm -fr menu.zip
 chmod +x *
 clear
 cd /usr/local/bin
@@ -374,7 +374,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  Funny VPN  ********</b></font><br>
+<font color="red"><b>********  Yogz Vpn Store  ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
