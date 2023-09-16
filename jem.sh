@@ -1,100 +1,30 @@
 #!/bin/bash
+#Funnyvpn
+#Rerechan02
+#Rayzell25
+#Nuralfiya
+#em0zz
+#naravpn.com
+#indo-ssh.com
+#indossh
+#Skc
+clear
+#=========================================================================================================================
+
 run_eula() {
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
-sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
-#warna
-export LANG='en_US.UTF-8'
-export LANGUAGE='en_US.UTF-8'
-# // Export Color & Information
-export RED='\033[0;31m'
-export GREEN='\033[0;32m'
-export YELLOW='\033[0;33m'
-export BLUE='\033[0;34m'
-export PURPLE='\033[0;35m'
-export CYAN='\033[0;36m'
-export LIGHT='\033[0;37m'
-export NC='\033[0m'
-BIRed='\033[1;91m'
-red='\e[1;31m'
-bo='\e[1m'
-red='\e[1;31m'
-green='\e[0;32m'
-yell='\e[1;33m'
-tyblue='\e[1;36m'
-purple() { echo -e "\\033[35;1m${*}\\033[0m"; }
-tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
-yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
-green() { echo -e "\\033[32;1m${*}\\033[0m"; }
-red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-# // Export Banner Status Information
-export EROR="[${RED} ERROR ${NC}]"
-export INFO="[${YELLOW} INFO ${NC}]"
-export OKEY="[${GREEN} OKEY ${NC}]"
-export PENDING="[${YELLOW} PENDING ${NC}]"
-export SEND="[${YELLOW} SEND ${NC}]"
-export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
-# // Export Align
-export BOLD="\e[1m"
-export WARNING="${RED}\e[5m"
-export UNDERLINE="\e[4m"
-clear
-echo -e "${tyblue} Welcome To MyVPN AutoScript......${NC} "
-sleep 2
-echo -e "[ ${green}INFO${NC} ] Preparing the install file"
-apt install git curl -y >/dev/null 2>&1
-echo -e "[ ${green}INFO${NC} ] installation file is ready"
-sleep 2
-sleep 3
-clear
-echo -e "${GREEN}Starting Installation............${NC}"
-sleep 1
-clear
-rm -fr *.sh
-}
-DATE2=$(date -R | cut -d " " -f -5)
-apt install zip -y
-apt install unzip -y
-apt install curl -y
-
-run_izin() {
-apt install curl -y
-#link izin ip vps
-url_izin='https://raw.githubusercontent.com/SARTAMP/izin/main/ip'
-
-# Mendapatkan IP VPS saat ini
-ip_vps=$(curl -s ifconfig.me)
-
-# Mendapatkan isi file izin.txt dari URL
-izin=$(curl -s "$url_izin")
-
-# Memeriksa apakah konten izin.txt berhasil didapatkan
-if [[ -n "$izin" ]]; then
-  while IFS= read -r line; do
-    # Memisahkan nama VPS, IP VPS, dan tanggal kadaluwarsa
-    nama=$(echo "$line" | awk '{print $1}')
-    ipvps=$(echo "$line" | awk '{print $2}')
-    tanggal=$(echo "$line" | awk '{print $3}')
-
-    # Memeriksa apakah IP VPS saat ini cocok dengan IP VPS yang ada di izin.txt
-    if [[ "$ipvps" == "$ip_vps" ]]; then
-      echo "Nama VPS: $nama"
-      echo "IP VPS: $ipvps"
-      echo "Tanggal Kadaluwarsa: $tanggal"
-      break
-    fi
-  done <<< "$izin"
-
-  # Memeriksa apakah IP VPS ditemukan dalam izin.txt
-  if [[ "$ipvps" != "$ip_vps" ]]; then
-    echo "IP VPS tidak ditemukan dalam izin.txt"
-    exit 0
-  fi
-else
-  echo "Konten izin.txt tidak berhasil didapatkan dari URL"
-  exit 0
+if [ "${EUID}" -ne 0 ]; then
+		echo "You need to run this script as root"
+		exit 1
 fi
-clear
+if [ "$(systemd-detect-virt)" == "openvz" ]; then
+		echo "OpenVZ is not supported"
+		exit 1
+fi
+if [ -f "/etc/xray/domain" ]; then
+echo "Script Already Installed"
+exit 1
+fi
+}
 
 run_funny() {
 #Create Folder
@@ -597,11 +527,14 @@ touch /root/system
 reboot
 }
 
+run_pensi() {
 run_eula
-run_izin
 run_tools
 run_funny
 run_ayato
 run_cantikva
 run_indo
 run_xiangling
+}
+
+run_pensi
