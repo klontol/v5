@@ -1,5 +1,15 @@
 #!/bin/bash
+#Funnyvpn
+#Rerechan02
+#Rayzell25
+#Nuralfiya
+#em0zz
+#naravpn.com
+#indo-ssh.com
+#indossh
+#Skc
 clear
+#=========================================================================================================================
 
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
@@ -15,47 +25,51 @@ echo "Script Already Installed"
 exit 1
 fi
 }
-#########################
-# USERNAME
-rm -f /usr/bin/user
-username=$(curl https://raw.githubusercontent.com/Sartamp/izin/main/ip | grep $MYIP | awk '{print $2}')
-echo "$username" >/usr/bin/user
-# validity
-rm -f /usr/bin/e
-valid=$(curl https://raw.githubusercontent.com/Sartamp/izin/main/ip | grep $MYIP | awk '{print $3}')
-echo "$valid" >/usr/bin/e
-# DETAIL ORDER
-username=$(cat /usr/bin/user)
-oid=$(cat /usr/bin/ver)
-exp=$(cat /usr/bin/e)
-clear
-# CERTIFICATE STATUS
-d1=$(date -d "$valid" +%s)
-d2=$(date -d "$today" +%s)
-certifacate=$(((d1 - d2) / 86400))
-# VPS Information
-DATE=$(date +'%Y-%m-%d')
-datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
-}
-mai="datediff "$Exp" "$DATE""
 
-# Status ExpiRED Active
-Info="(${green}Active${NC})"
-Error="(${RED}ExpiRED${NC})"
-today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl https://raw.githubusercontent.com/Sartamp/izin/main/ip | grep $MYIP | awk '{print $3}')
-if [[ $today < $Exp1 ]]; then
-sts="${Info}"
-else
-sts="${Error}"
-fi
-echo -e "\e[32mloading...\e[0m"
+run_funny() {
+#Create Folder
+mkdir /etc/slowdns
+mkdir /etc/xray
+mkdir /etc/websocket
+mkdir /etc/xray
+mkdir /etc/funny
+mkdir /etc/funny/trojan
+mkdir /etc/funny/vless
+mkdir /etc/funny/vmess
+mkdir /etc/funny/limit
+mkdir /etc/funny/socks5
+mkdir /etc/funny/limit/trojan
+mkdir /etc/funny/limit/vless
+mkdir /etc/funny/limit/vmess
+mkdir /etc/funny/limit/ssh
+mkdir /etc/funny/limit/sosck5
+mkdir /etc/funny/limit/socks5/ip
+mkdir /etc/funny/limit/socks5/quota
+mkdir /etc/funny/limit/ssh/ip
+mkdir /etc/funny/limit/trojan/ip
+mkdir /etc/funny/limit/trojan/quota
+mkdir /etc/funny/limit/vless/ip
+mkdir /etc/funny/limit/vless/quota
+mkdir /etc/funny/limit/vmess/ip
+mkdir /etc/funny/limit/vmess/quota
+mkdir /etc/funny/log
+mkdir /etc/funny/log/trojan
+mkdir /etc/funny/log/vless
+mkdir /etc/funny/log/vmess
+mkdir /etc/funny/log/ssh
+mkdir /etc/funny/log/socks5
+mkdir /etc/funny/cache
+mkdir /etc/funny/cache/trojan-tcp
+mkdir /etc/funny/cache/trojan-ws
+mkdir /etc/funny/cache/trojan-grpc
+mkdir /etc/funny/cache/vless-ws
+mkdir /etc/funny/cache/vless-grpc
+mkdir /etc/funny/cache/vmess-ws
+mkdir /etc/funny/cache/vmess-grpc
+mkdir /etc/funny/cache/vmess-ws-orbit
+mkdir /etc/funny/cache/vmess-ws-orbit1
+mkdir /etc/funny/cache/socks5
 clear
-REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
-
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
@@ -164,7 +178,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "${REPO}password"
+wget -O /etc/pam.d/common-password "https://github.com/Sartamp/v5/raw/main/password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -230,8 +244,8 @@ echo "neofetch" >> .profile
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf ${REPO}nginx.conf
-wget -O /etc/nginx/conf.d/xray.conf ${REPO}xray.conf
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Sartamp/v5/main/nginx.conf
+wget -O /etc/nginx/conf.d/xray.conf https://raw.githubusercontent.com/Sartamp/v5/main/xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 wget -O /var/www/html/index.html https://github.com/Rerechan02/Rerechan02.github.io/raw/main/index.html
 sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
@@ -247,19 +261,19 @@ wget -O /home/vps/public_html/index.html "https://github.com/Rerechan02/Rerechan
 cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
-wget ${REPO}menu.zip
-unzip menu.zip
-rm -fr menu.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
+unzip funny.zip
+rm -fr funny.zip
 chmod +x *
 clear
 cd /usr/local/bin
-wget ${REPO}ws.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
 unzip ws.zip
 rm -fr ws.zip
 chmod +x *
 chmod +x /usr/bin/*
 cd /etc/systemd/system
-wget ${REPO}service.zip
+wget https://raw.githubusercontent.com/Sartamp/v5/main/service.zip
 unzip service.zip
 rm -fr service.zip
 systemctl daemon-reload
@@ -360,7 +374,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  Yogz Vpn Store  ********</b></font><br>
+<font color="red"><b>********  Funny VPN  ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
@@ -420,7 +434,7 @@ cd .acme.sh
 bash acme.sh --register-account -m rere@rerechan02.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
-wget -O /etc/xray/config.json ${REPO}config.json
+wget -O /etc/xray/config.json https://raw.githubusercontent.com/Sartamp/v5/main/config.json
 
 #ssl
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
@@ -505,10 +519,14 @@ echo " "
 clear
 echo -e "Intsall Berhasil dan lancar" 
 echo -e "" 
-echo -e "Untuk membuka panel AutoSC Masukan" 
-echo -e "perintah ( menu ) tanpa tanda kurung" 
+echo -e "     <= Wajib di baca & lakukan =>" 
+echo -e "Port login VPS dari 22 di ganti ke 3303" 
+echo -e "karna kalo login vps make port 22 gampang kena brute force" 
 echo -e "" 
-read -p "Press enter untuk reboot : " ieieie 
+echo -e "Untuk membuka panel AutoSC Masukan" 
+echo -e "perintah ( funny ) tanpa tanda kurung" 
+echo -e "" 
+read -p "Pres enter untuk reboot : " ieieie 
 touch /root/system
 reboot
 }
