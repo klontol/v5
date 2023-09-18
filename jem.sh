@@ -515,6 +515,21 @@ rm -fr /root/.bash-history
 rm -fr /root/*
 touch /root/.system
 history -c
+#kwowo
+cat> /etc/systemd/system/quota.service << END
+[Unit]
+Description=Checker Service
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/quota
+
+[Install]
+WantedBy=multi-user.target
+END
+systemctl daemon-reload
+sysremctl restart quota
 echo "1.2" > /home/ver
 echo " "
 clear
