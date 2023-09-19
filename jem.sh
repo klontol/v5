@@ -73,7 +73,7 @@ clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-read -p "Input Your SubDomain : " domain
+read -p "Input Domain Name : " domain
 echo "$domain" > /root/scdomain
 echo "$domain" > /etc/xray/scdomain
 echo "$domain" > /etc/xray/domain
@@ -170,7 +170,6 @@ source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
 wget https://github.com/NevermoreSSH/VVV/raw/main/badvpn/setup.sh && chmod +x * && ./setup.sh
-rm -fr setup.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
