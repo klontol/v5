@@ -375,7 +375,7 @@ apt autoremove -y
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
 <br><font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>********  Yogz VPN  ********</b></font><br>
+<font color="red"><b>********   Yogz VPN   ********</b></font><br>
 <font color="blue"><b>===============================</br></font><br>
 END
 cd
@@ -538,7 +538,7 @@ echo -e ""
 echo -e "Untuk membuka panel AutoSC Masukan" 
 echo -e "perintah ( menu ) tanpa tanda kurung" 
 echo -e "" 
-read -p "Pres enter untuk reboot : " ieieie 
+read -p "Press enter untuk reboot : " ieieie 
 touch /root/system
 reboot
 }
