@@ -437,6 +437,7 @@ bash acme.sh --register-account -m rere@rerechan02.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
 wget -O /etc/xray/config.json https://raw.githubusercontent.com/Sartamp/v5/main/config.json
+wget -O /etc/xray/v2ray.json https://raw.githubusercontent.com/Sartamp/v5/main/v2ray.json
 
 #ssl
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
