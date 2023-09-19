@@ -525,9 +525,9 @@ TEXT="
 <b>==================================
 <b>IP VPS       :</b> <code>$IP</code>
 <b>Domain       :</b> <code>$(cat /etc/xray/domain)</code>
-<b>Date         :</b> <code>$DATE2</code>
+<b>Date         :</b> <code>$date</code>
 <b>Owner Name   :</b> <code>YSSHstore</code>
-<b>Expired      :</b> <code>$tanggal</code>
+<b>Expired      :</b> <code>Lifetime</code>
 <b>==================================</b>
 "
 clear
