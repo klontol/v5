@@ -1,15 +1,5 @@
 #!/bin/bash
-# BOT INFORMATION
-export CHATID="5795571992"
-export KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
-export TIME="10"
-export URL="https://api.telegram.org/bot$KEY/sendMessage"
-IP=$(curl ifconfig.me);
-domain=$(cat /etc/xray/domain)
-date=$(date +"%Y-%m-%d")
 clear
-#=========================================================================================================================
-
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -24,6 +14,14 @@ echo "Script Already Installed"
 exit 1
 fi
 }
+
+export CHATID="5795571992"
+export KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+IP=$(curl ifconfig.me);
+domain=$(cat /etc/xray/domain)
+date=$(date +"%Y-%m-%d")
 
 run_funny() {
 #Create Folder
@@ -509,8 +507,8 @@ rm -fr *
 systemctl daemon-reload
 systemctl restart nginx
 systemctl restart ssh
-systemctl enable badvpn2
-systemctl restart badvpn2
+systemctl enable badvpn
+systemctl restart badvpn
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
@@ -530,7 +528,6 @@ TEXT="
 <b>Expired      :</b> <code>Lifetime</code>
 <b>==================================</b>
 "
-clear
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 echo ""
 echo -e "Install Berhasil dan lancar"  
