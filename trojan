@@ -1,7 +1,7 @@
 #!/bin/bash
   while true; do
   sleep 30
-  data=($(cat /etc/xray/config.json | grep '^#tr#' | cut -d ' ' -f 2 | sort | uniq))
+  data=($(cat /etc/xray/config.json | grep '^#!' | cut -d ' ' -f 2 | sort | uniq))
   if [[ ! -e /etc/limit/trojan ]]; then
   mkdir -p /etc/limit/trojan
   fi
