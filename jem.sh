@@ -156,6 +156,7 @@ source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
 wget https://github.com/NevermoreSSH/VVV/raw/main/badvpn/setup.sh && chmod +x * && ./setup.sh
+wget https://github.com/SARTAMP/v5/main/limit.sh && chmod +x limit.sh && ./limit.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
