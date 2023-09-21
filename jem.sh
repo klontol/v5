@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -58,16 +59,24 @@ mkdir /etc/funny/cache/vmess-grpc
 mkdir /etc/funny/cache/vmess-ws-orbit
 mkdir /etc/funny/cache/vmess-ws-orbit1
 mkdir /etc/funny/cache/socks5
+mkdir /etc/vmess
+mkdir /etc/vless
+mkdir /etc/trojan
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-read -p "Input Domain Name : " domain
+read -p "Input Your SubDomain : " domain
+read -p "Input Your NS Domain : " nsdomain
 echo "$domain" > /root/scdomain
 echo "$domain" > /etc/xray/scdomain
 echo "$domain" > /etc/xray/domain
 echo "$domain" > /etc/v2ray/domain
 echo "$domain" > /root/domain
+echo "$nsdomain" > /etc/slowdns/nsdomain
+echo "$nsdomain" > /etc/xray/dns
+echo "$nsdomain" > /etc/xray/nsdomain
+echo "$nsdomain" > /etc/v2ray/dns
 clear
 }
 
@@ -83,6 +92,7 @@ apt-get remove --purge ufw firewalld -y
 apt-get remove --purge exim4 -y
 # Install Requirements Tools
 apt install ruby -y
+apt install nginx -y
 apt -y install wget curl
 gem install lolcat
 apt install python -y
@@ -336,9 +346,11 @@ echo "neofetch" >> .profile
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Sartamp/v5/main/nginx.conf
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Rerechan02/last/main/nginx.conf
 wget -O /etc/nginx/conf.d/xray.conf https://raw.githubusercontent.com/Sartamp/v5/main/xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
+sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/client.service
+sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/server.service
 wget -O /var/www/html/index.html https://github.com/Rerechan02/Rerechan02.github.io/raw/main/index.html
 sed -i 's/listen = \/var\/run\/php-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/fpm/pool.d/www.conf
 useradd -m vps;
@@ -352,6 +364,7 @@ wget -O /home/vps/public_html/index.html "https://github.com/Rerechan02/Rerechan
 
 # setting port ssh
 echo "Port 22" >>/etc/ssh/sshd_config
+echo "Port 3303" >>/etc/ssh/sshd_config
 # install dropbear
 echo "=== Install Dropbear ==="
 apt -y install dropbear
