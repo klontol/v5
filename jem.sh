@@ -15,16 +15,52 @@ exit 1
 fi
 }
 
-export CHATID="5795571992"
-export KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
-export TIME="10"
-export URL="https://api.telegram.org/bot$KEY/sendMessage"
-IP=$(curl ifconfig.me);
-domain=$(cat /etc/xray/domain)
-date=$(date +"%Y-%m-%d")
-
 run_peli() {
 #Create Folder
+mkdir /etc/slowdns
+mkdir /etc/xray
+mkdir /etc/websocket
+mkdir /etc/xray
+mkdir /etc/funny
+mkdir /etc/funny/trojan
+mkdir /etc/funny/vless
+mkdir /etc/funny/vmess
+mkdir /etc/funny/limit
+mkdir /etc/funny/socks5
+mkdir /etc/funny/limit/trojan
+mkdir /etc/funny/limit/vless
+mkdir /etc/funny/limit/vmess
+mkdir /etc/funny/limit/ssh
+mkdir /etc/funny/limit/sosck5
+mkdir /etc/funny/limit/socks5/ip
+mkdir /etc/funny/limit/socks5/quota
+mkdir /etc/funny/limit/ssh/ip
+mkdir /etc/funny/limit/trojan/ip
+mkdir /etc/funny/limit/trojan/quota
+mkdir /etc/funny/limit/vless/ip
+mkdir /etc/funny/limit/vless/quota
+mkdir /etc/funny/limit/vmess/ip
+mkdir /etc/funny/limit/vmess/quota
+mkdir /etc/funny/log
+mkdir /etc/funny/log/trojan
+mkdir /etc/funny/log/vless
+mkdir /etc/funny/log/vmess
+mkdir /etc/funny/log/ssh
+mkdir /etc/funny/log/socks5
+mkdir /etc/funny/cache
+mkdir /etc/funny/cache/trojan-tcp
+mkdir /etc/funny/cache/trojan-ws
+mkdir /etc/funny/cache/trojan-grpc
+mkdir /etc/funny/cache/vless-ws
+mkdir /etc/funny/cache/vless-grpc
+mkdir /etc/funny/cache/vmess-ws
+mkdir /etc/funny/cache/vmess-grpc
+mkdir /etc/funny/cache/vmess-ws-orbit
+mkdir /etc/funny/cache/vmess-ws-orbit1
+mkdir /etc/funny/cache/socks5
+mkdir /etc/vmess
+mkdir /etc/vless
+mkdir /etc/trojan
 rm -rf /etc/vmess/.vmess.db
 rm -rf /etc/vless/.vless.db
 rm -rf /etc/trojan/.trojan.db
@@ -147,6 +183,109 @@ curl ipinfo.io/region > /root/.region
 curl ifconfig.me > /root/.myip
 }
 
+run_ei() {
+  # Disable IPv6
+  sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
+  sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
+  
+  # Link izin IP VPS
+  url_izin='https://raw.githubusercontent.com/SARTAMP/v5/main/izin.txt'
+
+  # Mendapatkan IP VPS saat ini
+  ip_vps=$(curl -s ifconfig.me)
+
+  # Mendapatkan isi file izin.txt dari URL
+  izin=$(curl -s "$url_izin")
+
+  # Memeriksa apakah konten izin.txt berhasil didapatkan
+  if [[ -n "$izin" ]]; then
+    while IFS= read -r line; do
+      # Memisahkan nama VPS, IP VPS, dan tanggal kadaluwarsa
+      nama=$(echo "$line" | awk '{print $1}')
+      ipvps=$(echo "$line" | awk '{print $2}')
+      tanggal=$(echo "$line" | awk '{print $3}')
+
+      # Memeriksa apakah IP VPS saat ini cocok dengan IP VPS yang ada di izin.txt
+      if [[ "$ipvps" == "$ip_vps" ]]; then
+        echo "Nama VPS: $nama"
+        echo "IP VPS: $ipvps"
+        echo "Tanggal Kadaluwarsa: $tanggal"
+        break
+      fi
+    done <<< "$izin"
+
+    # Memeriksa apakah IP VPS ditemukan dalam izin.txt
+    if [[ "$ipvps" != "$ip_vps" ]]; then
+      # Add your message here for when the VPS doesn't have permission
+clear
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e "                 • YSSHstore •                 "
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e ""
+      echo -e "\e[93m Nama\e[32;1m   : $nama "
+      echo -e "\e[93m IP VPS\e[32;1m : $ip_vps"
+      echo -e "\e[93m Domain\e[32;1m : $(cat /etc/xray/domain)"
+      echo -e ""
+      echo -e "\e[93m Ssh\e[32;1m    : STOPPED "
+      echo -e "\e[93m Trojan\e[32;1m : STOPPED "
+      echo -e "\e[93m Vless\e[32;1m  : STOPPED "
+      echo -e "\e[93m Vmess\e[32;1m  : STOPPED "
+      echo -e ""        
+      echo -e "${red} VPS Anda Tidak Izinkan \e[32;1m "
+      echo -e "${red} Contact Admin Untuk Perizinan \e[32;1m" | lolcat
+      echo -e ""
+      echo -e "\e[93m Telegram\e[32;1m : https://t.me/YSSHstore"
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e ""
+      exit 0
+    fi
+  else
+    echo "Konten izin.txt tidak berhasil didapatkan dari URL"
+    exit 0
+  fi
+  clear
+}
+
+run_file() {
+####menu
+cd /usr/bin
+rm -fr menu
+rm -fr /usr/sbin/menu
+wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
+unzip menu.zip
+chmod +x menu/*
+mv menu/* /usr/local/sbin
+rm -rf menu
+rm -rf menu.zip
+#######service
+cd /usr/local/bin
+wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
+unzip ws.zip
+rm -fr ws.zip
+chmod +x *
+chmod +x /usr/bin/*
+#####core
+cd /etc/systemd/system
+wget https://raw.githubusercontent.com/Sartamp/v5/main/service.zip
+unzip service.zip
+rm -fr service.zip
+systemctl daemon-reload
+systemctl enable ws-stunnel
+systemctl enable ws-nontls
+systemctl restart ws-stunnel
+systemctl restart ws-nontls
+###slowdns
+mkdir /etc/slowdns
+cd /etc/slowdns
+wget https://raw.githubusercontent.com/Sartamp/v5/main/dns.zip
+unzip dns.zip
+chmod +x *
+./dnstt-server -gen-key -privkey-file server.key
+./dnstt-server -gen-key -pubkey-file server.pub
+rm -rf dns.zip
+cd
+}
+
 run_cantikva() {
 export DEBIAN_FRONTEND=noninteractive
 MYIP=$(wget -qO- ipinfo.io/ip);
@@ -246,43 +385,66 @@ cd /home/vps/public_html
 wget -O /home/vps/public_html/index.html "https://github.com/Rerechan02/Rerechan02.github.io/raw/main/index.html"
 /etc/init.d/nginx restart
 
-cd /usr/bin
-rm -fr menu
-rm -fr /usr/sbin/menu
-wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
-unzip menu.zip
-chmod +x menu/*
-mv menu/* /usr/local/sbin
-rm -rf menu
-rm -rf menu.zip
-clear
-cd /usr/local/bin
-wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
-unzip ws.zip
-rm -fr ws.zip
-chmod +x *
-chmod +x /usr/bin/*
-cd /etc/systemd/system
-wget https://raw.githubusercontent.com/Sartamp/v5/main/service.zip
-unzip service.zip
-rm -fr service.zip
-systemctl daemon-reload
-systemctl enable ws-stunnel
-systemctl enable ws-nontls
-systemctl restart ws-stunnel
-systemctl restart ws-nontls
-clear
-cd
 # setting port ssh
 echo "Port 22" >>/etc/ssh/sshd_config
 # install dropbear
+echo "=== Install Dropbear ==="
 apt -y install dropbear
-sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109"/g' /etc/default/dropbear
+clear
+mkdir -p /etc/funny
+##end
+rm /etc/default/dropbear
+rm /etc/issue.net
+cat>  /etc/default/dropbear << END
+# disabled because OpenSSH is installed
+# change to NO_START=0 to enable Dropbear
+NO_START=0
+# the TCP port that Dropbear listens on
+DROPBEAR_PORT=111
+DROPBEAR_PORT=143
+
+# any additional arguments for Dropbear
+DROPBEAR_EXTRA_ARGS="-p 109 -p 69 "
+
+# specify an optional banner file containing a message to be
+# sent to clients before they connect, such as "/etc/issue.net"
+DROPBEAR_BANNER="/etc/issue.net"
+
+# RSA hostkey file (default: /etc/dropbear/dropbear_rsa_host_key)
+#DROPBEAR_RSAKEY="/etc/dropbear/dropbear_rsa_host_key"
+
+# DSS hostkey file (default: /etc/dropbear/dropbear_dss_host_key)
+#DROPBEAR_DSSKEY="/etc/dropbear/dropbear_dss_host_key"
+
+# ECDSA hostkey file (default: /etc/dropbear/dropbear_ecdsa_host_key)
+#DROPBEAR_ECDSAKEY="/etc/dropbear/dropbear_ecdsa_host_key"
+
+# Receive window size - this is a tradeoff between memory and
+# network performance
+DROPBEAR_RECEIVE_WINDOW=65536
+END
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
+rm -fr /etc/issue.net
+cat> /etc/issue.net << END
+<p style="text-align:center"> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
+color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
+color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
+color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
+color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
+color='#F1006F'>▬</font><br> <font color="#F5FE00"><b> --- 卍 WELCOME TO PREMIUM YOGZ VPN TUNNEL 卐 --- </b></font><br> <font
+color='red'>! PERATURAN SERVER !</font><br> <font color='#20CDCC'><b> NO DDOS </b></font><br> <font
+color='#10C7E5'><b> NO SPAMING </b></font><br> <font color='#00C1FF'><b> NO HACKING AND CARDING </b></font><br> 
+<font color="#E51369"><b> NO TORRENT!!  </b> </font><br> <font color="#483D8B"><b> ORDER PREMIUM : wa.me/6281215360549</br> </font><br> <font color="#483D8B"><b></br></font><br> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
+color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
+color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
+color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
+color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
+color='#F1006F'>▬</font>
+END
 /etc/init.d/dropbear restart
+echo "/bin/false" >> /etc/shells
+echo "/usr/sbin/nologin" >> /etc/shells
 # setting vnstat
 apt -y install vnstat
 /etc/init.d/vnstat restart
@@ -359,24 +521,6 @@ apt-get -y --purge remove apache2*;
 apt-get -y --purge remove bind9*;
 apt-get -y remove sendmail*
 apt autoremove -y
-# finishing
-rm -fr /etc/issue.net
-cat> /etc/issue.net << END
-<p style="text-align:center"> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
-color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
-color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
-color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
-color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
-color='#F1006F'>▬</font><br> <font color="#F5FE00"><b> --- 卍 WELCOME TO PREMIUM YOGZ VPN TUNNEL 卐 --- </b></font><br> <font
-color='red'>! PERATURAN SERVER !</font><br> <font color='#20CDCC'><b> NO DDOS </b></font><br> <font
-color='#10C7E5'><b> NO SPAMING </b></font><br> <font color='#00C1FF'><b> NO HACKING AND CARDING </b></font><br> 
-<font color="#E51369"><b> NO TORRENT!!  </b> </font><br> <font color="#483D8B"><b> ORDER PREMIUM : wa.me/6281215360549</br> </font><br> <font color="#483D8B"><b></br></font><br> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
-color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
-color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
-color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
-color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
-color='#F1006F'>▬</font>
-END
 cd
 chown -R www-data:www-data /home/vps/public_html
 /etc/init.d/nginx restart
@@ -435,7 +579,6 @@ bash acme.sh --register-account -m rere@rerechan02.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
 wget -O /etc/xray/config.json https://raw.githubusercontent.com/Sartamp/v5/main/config.json
-wget -O /etc/xray/v2ray.json https://raw.githubusercontent.com/Sartamp/v5/main/v2ray.json
 
 #ssl
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
@@ -475,6 +618,7 @@ systemctl start xray.service
 systemctl enable xray.service
 systemctl restart xray.service
 systemctl restart haproxy.service
+systemctl restart dropbear
 cd   
 rm -fr *
 }
@@ -502,14 +646,35 @@ dpkg -i /tmp/gotop.deb >/dev/null 2>&1
 fi
 }
 
+run_anumu() {
+# > Make a swap of 10GB
+dd if=/dev/zero of=/swapfile bs=1024 count=10485760
+mkswap /swapfile
+chown root:root /swapfile
+chmod 0600 /swapfile >/dev/null 2>&1
+swapon /swapfile >/dev/null 2>&1
+sed -i '$ i\/swapfile      swap swap   defaults    0 0' /etc/fstab
+clear
+}
+
 run_xiangling() {
 #sukses
 rm -fr *
+cp /usr/local/bin/badvpn /usr/sbin
 systemctl daemon-reload
+###enable
+systemctl enable badvpn2
+systemctl enable badvpn1
+systemctl enable badvpn3
+systemctl enable client
+systemctl enable server
+systemctl enable ws-nontls
+systemctl enable ws-stunnel
+systemctl enable quota
+##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl enable badvpn
-systemctl restart badvpn
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
@@ -518,19 +683,6 @@ history -c
 echo "1.2" > /home/ver
 echo " "
 clear
-echo -e ""
-TEXT="
-<b>Detail Install Script</b>
-<b>==================================
-<b>IP VPS       :</b> <code>$IP</code>
-<b>Domain       :</b> <code>$(cat /etc/xray/domain)</code>
-<b>Date         :</b> <code>$date</code>
-<b>Owner Name   :</b> <code>YSSHstore</code>
-<b>Expired      :</b> <code>Lifetime</code>
-<b>==================================</b>
-"
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-echo ""
 echo -e "Install Berhasil dan lancar"  
 echo -e "" 
 echo -e "Untuk membuka panel AutoSC Masukan" 
@@ -538,17 +690,22 @@ echo -e "perintah ( menu ) tanpa tanda kurung"
 echo -e "" 
 read -p "Press enter untuk reboot : " ieieie 
 touch /root/system
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
+sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
+rm -fr .bash_history
 reboot
 }
 
 run_pensi() {
-run_asu
 run_eula
 run_tools
+run_ei
+run_file
 run_peli
 run_ayato
 run_cantikva
 run_indo
+run_anumu
 run_xiangling
 }
 
