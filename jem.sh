@@ -58,39 +58,6 @@ mkdir /etc/funny/cache/vmess-grpc
 mkdir /etc/funny/cache/vmess-ws-orbit
 mkdir /etc/funny/cache/vmess-ws-orbit1
 mkdir /etc/funny/cache/socks5
-mkdir /etc/vmess
-mkdir /etc/vless
-mkdir /etc/trojan
-rm -rf /etc/vmess/.vmess.db
-rm -rf /etc/vless/.vless.db
-rm -rf /etc/trojan/.trojan.db
-rm -rf /etc/shadowsocks/.shadowsocks.db
-rm -rf /etc/ssh/.ssh.db
-rm -rf /etc/bot/.bot.dh
-mkdir -p /etc/bot
-mkdir -p /etc/xray
-mkdir -p /etc/vmess
-mkdir -p /etc/vless
-mkdir -p /etc/trojan
-mkdir -p /etc/shadowsocks
-mkdir -p /etc/ssh
-mkdir -p /usr/bin/xray/
-mkdir -p /var/log/xray/
-mkdir -p /var/www/html
-chmod +x /var/log/xray
-touch /etc/xray/domain
-touch /var/log/xray/access.log
-touch /var/log/xray/error.log
-mkdir -p /etc/limit/vmess
-mkdir -p /etc/limit/vless
-mkdir -p /etc/limit/trojan
-mkdir -p /etc/limit/ssh
-touch /etc/vmess/.vmess.db
-touch /etc/vless/.vless.db
-touch /etc/trojan/.trojan.db
-touch /etc/shadowsocks/.shadowsocks.db
-touch /etc/ssh/.ssh.db
-touch /etc/bot/.bot.db
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
@@ -294,8 +261,6 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
-wget https://github.com/NevermoreSSH/VVV/raw/main/badvpn/setup.sh && chmod +x * && ./setup.sh
-wget https://github.com/SARTAMP/v5/main/limit.sh && chmod +x limit.sh && ./limit.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
