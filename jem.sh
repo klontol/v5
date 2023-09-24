@@ -81,6 +81,7 @@ clear
 }
 
 run_bot() {
+RAM="$((mem_total / 1024))"
 ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
 CITY=$(curl -s ipinfo.io/city )
 tanggal=`date -d "0 days" +"%d-%m-%Y - %X" `
@@ -99,17 +100,17 @@ CHATID="5795571992"
 KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-TEXT="Installasi VPN Script Stable V1.5
-    ============================
-    <code>Tanggal    :</code> <code>$tanggal</code>
-    <code>Hostname   :</code> <code>${HOSTNAME}</code>
-    <code>IP Vps     :</code> <code>$MYIP</code>
-    <code>OS Vps     :</code> <code>$OS_Name</code>
-    <code>Isp        :</code> <code>$ISP</code>
-    <code>City       :</code> <code>$CITY</code>
-    <code>Ram Left   :</code> <code>$Ram_Usage MB</code>
-    <code>Ram Used   :</code> <code>$Ram_Total MB</code>
-    ============================
+TEXT="<b>INFORMASI INSTAL SCRIPT VPN V1.0</b>
+============================
+<b>DOMAIN     :</b> <code>$domain</code>
+<b>IP VPS     :</b> <code>$MYIP</code>
+<b>OS VPS     :</b> <code>$OS_Name</code>
+<b>ISP        :</b> <code>$ISP</code>
+<b>CITY       :</b> <code>$CITY</code>
+<b>RAM        :</b> <code>$RAM MB</code>
+<b>HOSTNAME   :</b> <code>${HOSTNAME}</code>
+<b>TANGGAL    :</b> <code>$tanggal</code>
+============================
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
