@@ -100,18 +100,17 @@ CHATID="5795571992"
 KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-TEXT="
-<code>INFORMASI INSTAL SCRIPT VPN V1.0</code>
-============================
-<code>DOMAIN     :</code> <code>${cat /etc/xray/domain}</code>
-<code>IP VPS     :</code> <code>$MYIP</code>
-<code>OS VPS     :</code> <code>$OS_Name</code>
-<code>ISP        :</code> <code>$ISP</code>
-<code>CITY       :</code> <code>$CITY</code>
-<code>RAM        :</code> <code>$RAM MB</code>
-<code>HOSTNAME   :</code> <code>${HOSTNAME}</code>
-<code>TANGGAL    :</code> <code>$tanggal</code>
-============================
+TEXT="<code>INFORMASI INSTAL SCRIPT VPN V1.0</code>
+    ============================
+    <code>DOMAIN     :</code> <code>${cat /etc/xray/domain}</code>
+    <code>IP VPS     :</code> <code>$MYIP</code>
+    <code>OS VPS     :</code> <code>$OS_Name</code>
+    <code>ISP        :</code> <code>$ISP</code>
+    <code>CITY       :</code> <code>$CITY</code>
+    <code>RAM        :</code> <code>$RAM MB</code>
+    <code>HOSTNAME   :</code> <code>${HOSTNAME}</code>
+    <code>TANGGAL    :</code> <code>$tanggal</code>
+    ============================
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
