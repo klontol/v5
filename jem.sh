@@ -659,15 +659,35 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
-echo " "
+echo -e ""
+TEXT="
+Info Install Script V1.0
+==================================
+IP VPS        : $ip_vps
+ISP           : $(cat /root/.myisp)
+CITY          : $(cat /root/.mycity)
+Domain        : $(cat /etc/xray/domain)
+Date & Time   : $DATE2
+Client Name   : $nama
+Expired       : $tanggal
+==================================
+"
 clear
-echo -e "Install Berhasil dan lancar"  
-echo -e "" 
-echo -e "Untuk membuka panel AutoSC Masukan" 
-echo -e "perintah ( menu ) tanpa tanda kurung" 
-echo -e "" 
-read -p "Press enter untuk reboot : " ieieie 
-touch /root/system
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+echo ""
+clear
+echo -e "
+Detail Install Script V1.0
+==================================
+IP VPS        : $ip_vps
+Domain        : $(cat /etc/xray/domain)
+Date & Time   : $DATE2
+Client Name   : $nama
+Expired       : $tanggal
+==================================
+"
+read -n 1 -s -r -p "Press any key to reboot"
+reboot
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
 rm -fr .bash_history
