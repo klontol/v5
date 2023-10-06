@@ -664,16 +664,15 @@ TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 echo -e ""
 TEXT="
-Info Install Script V1.0
+<code>Info Install Script V1.0</code>
 ==================================
-IP VPS        : $ip_vps
-ISP           : $(cat /root/.myisp)
-CITY          : $(cat /root/.mycity)
-Domain        : $(cat /etc/xray/domain)
-Date & Time   : $DATE2
-Client Name   : $nama
-Expired       : $tanggal
-==================================
+<code>IP VPS        :</code> <code>$ip_vps</code>
+<code>ISP           :</code> <code>$(cat /root/.myisp)</code>
+<code>CITY          :</code> <code>$(cat /root/.mycity)</code>
+<code>Domain        :</code> <code>$(cat /etc/xray/domain)</code>
+<code>Client Name   :</code> <code>$nama</code>
+<code>Expired       :</code> <code>$tanggal</code>
+<code>==================================</code>
 "
 clear
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
@@ -684,7 +683,6 @@ Detail Install Script V1.0
 ==================================
 IP VPS        : $ip_vps
 Domain        : $(cat /etc/xray/domain)
-Date & Time   : $DATE2
 Client Name   : $nama
 Expired       : $tanggal
 ==================================
