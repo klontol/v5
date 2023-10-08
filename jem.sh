@@ -649,14 +649,10 @@ systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
 systemctl enable quota
-systemctl enable limitvmess
-systemctl enable limitvless
-systemctl enable limittrojan
-systemctl enable limitshadowsocks
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota limitvmess limitvless limittrojan limitshadowsocks
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
@@ -671,12 +667,12 @@ echo -e ""
 TEXT="
 <code>Info Install Script V1.0</code>
 ==================================
-<code>IP VPS        :</code> <code>$ip_vps</code>
-<code>ISP           :</code> <code>$(cat /root/.myisp)</code>
-<code>CITY          :</code> <code>$(cat /root/.mycity)</code>
-<code>Domain        :</code> <code>$(cat /etc/xray/domain)</code>
-<code>Client Name   :</code> <code>$nama</code>
-<code>Expired       :</code> <code>$tanggal</code>
+<code>IP VPS     :</code> <code>$ip_vps</code>
+<code>ISP        :</code> <code>$(cat /root/.myisp)</code>
+<code>CITY       :</code> <code>$(cat /root/.mycity)</code>
+<code>Domain     :</code> <code>$(cat /etc/xray/domain)</code>
+<code>Client Name:</code> <code>$nama</code>
+<code>Expired    :</code> <code>$tanggal</code>
 <code>==================================</code>
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
