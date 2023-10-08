@@ -649,10 +649,14 @@ systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
 systemctl enable quota
+systemctl enable limitvmess
+systemctl enable limitvless
+systemctl enable limittrojan
+systemctl enable limitshadowsocks
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota limitvmess limitvless limittrojan limitshadowsocks
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
