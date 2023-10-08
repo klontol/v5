@@ -1,4 +1,6 @@
 #!/bin/bash
+# // REPO
+REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
 clear
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
@@ -227,7 +229,7 @@ run_file() {
 cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
-wget https://raw.githubusercontent.com/Sartamp/v5/main/menu.zip
+wget ${REPO}menu.zip
 unzip menu.zip
 chmod +x menu/*
 mv menu/* /usr/local/sbin
@@ -235,14 +237,14 @@ rm -rf menu
 rm -rf menu.zip
 #######service
 cd /usr/local/bin
-wget https://raw.githubusercontent.com/Sartamp/v5/main/ws.zip
+wget ${REPO}ws.zip
 unzip ws.zip
 rm -fr ws.zip
 chmod +x *
 chmod +x /usr/bin/*
 #####core
 cd /etc/systemd/system
-wget https://raw.githubusercontent.com/Sartamp/v5/main/service.zip
+wget ${REPO}service.zip
 unzip service.zip
 rm -fr service.zip
 systemctl daemon-reload
@@ -253,7 +255,7 @@ systemctl restart ws-nontls
 ###slowdns
 mkdir /etc/slowdns
 cd /etc/slowdns
-wget https://raw.githubusercontent.com/Sartamp/v5/main/dns.zip
+wget ${REPO}dns.zip
 unzip dns.zip
 chmod +x *
 ./dnstt-server -gen-key -privkey-file server.key
@@ -279,7 +281,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/Sartamp/v5/main/password"
+wget -O /etc/pam.d/common-password "${REPO}password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -345,8 +347,8 @@ echo "neofetch" >> .profile
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Rerechan02/last/main/nginx.conf
-wget -O /etc/nginx/conf.d/xray.conf https://raw.githubusercontent.com/Sartamp/v5/main/xray.conf
+wget -O /etc/nginx/nginx.conf ${REPO}nginx.conf
+wget -O /etc/nginx/conf.d/xray.conf ${REPO}xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/client.service
 sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/server.service
@@ -555,8 +557,8 @@ cd .acme.sh
 bash acme.sh --register-account -m rere@rerechan02.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
-wget -O /etc/xray/config.json https://raw.githubusercontent.com/Sartamp/v5/main/config.json
-
+wget -O /etc/xray/config.json ${REPO}config.json
+wget ${REPO}limit.sh
 #ssl
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
 
@@ -659,7 +661,7 @@ touch /root/.system
 history -c
 echo "1.2" > /home/ver
 CHATID="5795571992"
-KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+KEY="6386703502:AAENoEhJuBF_R1EGqrUHD5jPASwOukQtUGM"
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 echo -e ""
@@ -674,7 +676,6 @@ TEXT="
 <code>Expired       :</code> <code>$tanggal</code>
 <code>==================================</code>
 "
-clear
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 echo ""
 clear
@@ -687,8 +688,7 @@ Client Name   : $nama
 Expired       : $tanggal
 ==================================
 "
-read -n 1 -s -r -p "Press any key to reboot"
-reboot
+read -n 1 -s -r -p "Press [ Enter ] to reboot vps"
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
 rm -fr .bash_history
