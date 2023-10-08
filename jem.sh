@@ -347,7 +347,7 @@ echo "neofetch" >> .profile
 apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf ${REPO}nginx.conf
+wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Rerechan02/last/main/nginx.conf
 wget -O /etc/nginx/conf.d/xray.conf ${REPO}xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/client.service
