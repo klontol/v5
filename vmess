@@ -39,7 +39,7 @@ for user in ${data[@]}
       Usage=$(cat /etc/limit/vmess/${user});
       if [[ ${Usage} -gt ${checkLimit} ]]; then
       exp=$(grep -w "^#vm# $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-      sed -i "/^#vm# $user $exp/,/^},{/d" /etc/xray/config.json
+      sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
       systemctl restart xray >> /dev/null 2>&1
       else
       echo ""
