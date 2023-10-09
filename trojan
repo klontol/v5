@@ -38,7 +38,7 @@ for user in ${data[@]}
       if [ -e /etc/limit/trojan/${user} ]; then
       Usage=$(cat /etc/limit/trojan/${user});
       if [[ ${Usage} -gt ${checkLimit} ]]; then
-      exp=$(grep -w "^#tr# $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+      exp=$(grep -w "^#! $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
       sed -i "/^#! $user $exp/,/^},{/d" /etc/xray/config.json
       systemctl restart xray >> /dev/null 2>&1
       else
