@@ -6,7 +6,7 @@ wget -q -O /etc/systemd/system/limitshadowsocks.service "${REPO}/limitshadowsock
 wget -q -O /etc/xray/limit.vmess "${REPO}/vmess" >/dev/null 2>&1
 wget -q -O /etc/xray/limit.vless "${REPO}/vless" >/dev/null 2>&1
 wget -q -O /etc/xray/limit.trojan "${REPO}/trojan" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.shadowsocks "${REPO}shadowsocks" >/dev/null 2>&1
+wget -q -O /etc/xray/limit.shadowsocks "${REPO}/shadowsocks" >/dev/null 2>&1
 chmod +x /etc/xray/limit.vmess
 chmod +x /etc/xray/limit.vless
 chmod +x /etc/xray/limit.trojan
