@@ -63,6 +63,8 @@ mkdir /etc/funny/cache/socks5
 mkdir /etc/vmess
 mkdir /etc/vless
 mkdir /etc/trojan
+mkdir -p /etc/bot
+touch /etc/bot/.bot.db
 clear
 echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
