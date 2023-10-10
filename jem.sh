@@ -94,6 +94,7 @@ apt dist-upgrade -y
 apt-get remove --purge ufw firewalld -y
 apt-get remove --purge exim4 -y
 # Install Requirements Tools
+apt install figlet -y
 apt install ruby -y
 apt install nginx -y
 apt -y install wget curl
@@ -681,16 +682,13 @@ TEXT="
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 echo ""
 clear
-echo -e "
-Detail Install Script V1.0
-==================================
-IP VPS        : $ip_vps
-Domain        : $(cat /etc/xray/domain)
-Client Name   : $nama
-Expired       : $tanggal
-==================================
-"
-read -n 1 -s -r -p "Press [ Enter ] to reboot vps"
+figlet "Yogzz" 
+echo -e "" 
+echo -e "Untuk membuka panel AutoSC Masukan" 
+echo -e "perintah ( menu ) tanpa tanda kurung" 
+echo -e "" 
+read -p "Press enter untuk reboot : " ieieie 
+touch /root/system
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
 rm -fr .bash_history
