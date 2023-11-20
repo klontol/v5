@@ -202,7 +202,7 @@ run_ei() {
   sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
   sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
   
-IPVPES="https://raw.githubusercontent.com/SARTAMP/v5/main/izin"
+IPVPES="https://raw.githubusercontent.com/SARTAMP/izin/main/ip"
 clear
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
@@ -220,7 +220,7 @@ checking_sc() {
     echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
     echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
     echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/6283160098834"
+    echo -e "      \033[0;36mTelegram${NC} t.me/YSSHstore"
     echo -e "${y}────────────────────────────────────────────\033[0m"
     exit
   fi
