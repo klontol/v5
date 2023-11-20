@@ -1,5 +1,26 @@
 #!/bin/bash
-# t.me/bijiOntaTerbangG
+# // REPO
+REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
+clear
+restart_system() {
+TIME="10"
+CHATID="5795571992"
+KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+echo -e ""
+TEXT="
+<code>Info Install Script V1.0</code>
+==================================
+<code>IP VPS     :</code> <code>$ip_vps</code>
+<code>ISP        :</code> <code>$(cat /root/.myisp)</code>
+<code>CITY       :</code> <code>$(cat /root/.mycity)</code>
+<code>Domain     :</code> <code>$(cat /etc/xray/domain)</code>
+<code>Client Name:</code> <code>$nama</code>
+<code>Expired    :</code> <code>$tanggal</code>
+<code>==================================</code>
+"
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
 
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
@@ -11,7 +32,7 @@ if [ "$(systemd-detect-virt)" == "openvz" ]; then
 		exit 1
 fi
 if [ -f "/etc/xray/domain" ]; then
-echo "Script Sudah TerInstall Sebelumnya"
+echo "Script Already Installed"
 exit 1
 fi
 }
@@ -19,7 +40,9 @@ fi
 run_peli() {
 #Create Folder
 mkdir /etc/slowdns
+mkdir /etc/xray
 mkdir /etc/websocket
+mkdir /etc/xray
 mkdir /etc/funny
 mkdir /etc/funny/trojan
 mkdir /etc/funny/vless
@@ -57,52 +80,15 @@ mkdir /etc/funny/cache/vmess-grpc
 mkdir /etc/funny/cache/vmess-ws-orbit
 mkdir /etc/funny/cache/vmess-ws-orbit1
 mkdir /etc/funny/cache/socks5
-
-# // Beda Folder
-rm -rf /etc/vmess/.vmess.db
-    rm -rf /etc/vless/.vless.db
-    rm -rf /etc/trojan/.trojan.db
-    rm -rf /etc/shadowsocks/.shadowsocks.db
-    rm -rf /etc/ssh/.ssh.db
-    rm -rf /etc/bot/.bot.db
-    mkdir /etc/log-create
-    mkdir -p /etc/bot
-    mkdir -p /etc/xray
-    mkdir -p /etc/vmess
-    mkdir -p /etc/vless
-    mkdir -p /etc/trojan
-    mkdir -p /etc/shadowsocks
-    mkdir -p /etc/ssh
-    mkdir -p /usr/bin/xray/
-    mkdir -p /var/log/xray/
-    mkdir -p /var/www/html
-    mkdir -p /etc/kyt/limit/vmess/ip
-    mkdir -p /etc/kyt/limit/vless/ip
-    mkdir -p /etc/kyt/limit/trojan/ip
-    mkdir -p /etc/kyt/limit/ssh/ip
-    mkdir -p /etc/limit/vmess
-    mkdir -p /etc/limit/vless
-    mkdir -p /etc/limit/trojan
-    mkdir -p /etc/limit/ssh
-    chmod +x /var/log/xray
-    touch /etc/xray/domain
-    touch /var/log/xray/access.log
-    touch /var/log/xray/error.log
-    touch /etc/vmess/.vmess.db
-    touch /etc/vless/.vless.db
-    touch /etc/trojan/.trojan.db
-    touch /etc/shadowsocks/.shadowsocks.db
-    touch /etc/ssh/.ssh.db
-    touch /etc/bot/.bot.db
-    echo "& plughin Account" >>/etc/vmess/.vmess.db
-    echo "& plughin Account" >>/etc/vless/.vless.db
-    echo "& plughin Account" >>/etc/trojan/.trojan.db
-    echo "& plughin Account" >>/etc/shadowsocks/.shadowsocks.db
-    echo "& plughin Account" >>/etc/ssh/.ssh.db
+mkdir /etc/vmess
+mkdir /etc/vless
+mkdir /etc/trojan
+mkdir -p /etc/bot
+touch /etc/bot/.bot.db
 clear
-echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e "$green          Input Domain              	$NC"
-echo -e "\033[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -p "Input Your SubDomain : " domain
 read -p "Input Your NS Domain : " nsdomain
 echo "$domain" > /root/scdomain
@@ -154,6 +140,7 @@ apt install apt-transport-https -y
 apt install build-essential -y
 apt install dirmngr -y
 apt install libxml-parser-perl -y
+apt install neofetch -y
 apt install git -y
 apt install lsof -y
 apt install libsqlite3-dev -y
@@ -202,134 +189,104 @@ run_ei() {
   sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
   sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
   
-IPVPES="https://raw.githubusercontent.com/SARTAMP/izin/main/ip"
+  # Link izin IP VPS
+  url_izin='https://raw.githubusercontent.com/SARTAMP/v5/main/izin.txt'
+
+  # Mendapatkan IP VPS saat ini
+  ip_vps=$(curl -s ifconfig.me)
+
+  # Mendapatkan isi file izin.txt dari URL
+  izin=$(curl -s "$url_izin")
+
+  # Memeriksa apakah konten izin.txt berhasil didapatkan
+  if [[ -n "$izin" ]]; then
+    while IFS= read -r line; do
+      # Memisahkan nama VPS, IP VPS, dan tanggal kadaluwarsa
+      nama=$(echo "$line" | awk '{print $1}')
+      ipvps=$(echo "$line" | awk '{print $2}')
+      tanggal=$(echo "$line" | awk '{print $3}')
+
+      # Memeriksa apakah IP VPS saat ini cocok dengan IP VPS yang ada di izin.txt
+      if [[ "$ipvps" == "$ip_vps" ]]; then
+        echo "Nama VPS: $nama"
+        echo "IP VPS: $ipvps"
+        echo "Tanggal Kadaluwarsa: $tanggal"
+        break
+      fi
+    done <<< "$izin"
+
+    # Memeriksa apakah IP VPS ditemukan dalam izin.txt
+    if [[ "$ipvps" != "$ip_vps" ]]; then
+      # Add your message here for when the VPS doesn't have permission
 clear
-ipsaya=$(wget -qO- ipinfo.io/ip)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d" -d "$data_server")
-checking_sc() {
-  useexp=$(wget -qO- $IPVPES | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
-    echo -ne
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e "                 • YSSHstore •                 "
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e ""
+      echo -e "\e[93m Nama\e[32;1m   : $nama "
+      echo -e "\e[93m IP VPS\e[32;1m : $ip_vps"
+      echo -e "\e[93m Domain\e[32;1m : $(cat /etc/xray/domain)"
+      echo -e ""
+      echo -e "\e[93m SSH\e[32;1m    : LOCKED "
+      echo -e "\e[93m VMESS\e[32;1m  : LOCKED "
+      echo -e "\e[93m VLESS\e[32;1m  : LOCKED "
+      echo -e "\e[93m TROJAN\e[32;1m : LOCKED "
+      echo -e ""        
+      echo -e "${red} VPS Anda Tidak Izinkan \e[32;1m "
+      echo -e "${red} Contact Admin Untuk Perizinan \e[32;1m" | lolcat
+      echo -e ""
+      echo -e "\e[93m Telegram\e[32;1m : https://t.me/YSSHstore"
+      echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
+      echo -e ""
+      exit 0
+    fi
   else
-    echo -e "${y}────────────────────────────────────────────\033[0m"
-    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
-    echo -e "${y}────────────────────────────────────────────\033[0m"
-    echo -e ""
-    echo -e "            ${RED}PERMISSION DENIED !${NC}"
-    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
-    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
-    echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/YSSHstore"
-    echo -e "${y}────────────────────────────────────────────\033[0m"
-    exit
+    echo "Konten izin.txt tidak berhasil didapatkan dari URL"
+    exit 0
   fi
-}
-checking_sc
-clear
+  clear
 }
 
 run_file() {
-##### menu #####
+####menu
 cd /usr/bin
 rm -fr menu
 rm -fr /usr/sbin/menu
-wget https://raw.githubusercontent.com/SARTAMP/v5/main/menu.zip
+wget ${REPO}menu.zip
 unzip menu.zip
 chmod +x menu/*
 mv menu/* /usr/local/sbin
 rm -rf menu
 rm -rf menu.zip
-##### service #####
+#######service
 cd /usr/local/bin
-wget https://raw.githubusercontent.com/SARTAMP/v5/main/ws/ws.zip
+wget ${REPO}ws.zip
 unzip ws.zip
 rm -fr ws.zip
 chmod +x *
 chmod +x /usr/bin/*
-###### core system #####
+#####core
 cd /etc/systemd/system
-wget https://raw.githubusercontent.com/SARTAMP/v5/main/ws/service.zip
+wget ${REPO}service.zip
 unzip service.zip
 rm -fr service.zip
 systemctl daemon-reload
 systemctl enable ws-stunnel
 systemctl enable ws-nontls
-systemctl enable quota
 systemctl restart ws-stunnel
 systemctl restart ws-nontls
-systemctl restart quota
-##### slowdns ######
+###slowdns
 mkdir /etc/slowdns
 cd /etc/slowdns
-wget https://raw.githubusercontent.com/SARTAMP/v5/main/dns.zip
+wget ${REPO}dns.zip
 unzip dns.zip
 chmod +x *
 ./dnstt-server -gen-key -privkey-file server.key
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
-wget https://raw.githubusercontent.com/ZvnStores/tv/main/limit/limit.sh && chmod +x limit.sh && ./limit.sh
-cd
-wget -q -O /usr/bin/limit-ip "https://raw.githubusercontent.com/ZvnStores/tv/main/limit/limit-ip"
-chmod +x /usr/bin/*
-cd /usr/bin
-sed -i 's/\r//' limit-ip
-cd
-clear
-#SERVICE LIMIT ALL IP
-cat >/etc/systemd/system/vmip.service << EOF
-[Unit]
-Description=My
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip vmip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl restart vmip
-systemctl enable vmip
-
-cat >/etc/systemd/system/vlip.service << EOF
-[Unit]
-Description=My
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip vlip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl restart vlip
-systemctl enable vlip
-
-cat >/etc/systemd/system/trip.service << EOF
-[Unit]
-Description=My
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip trip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-systemctl daemon-reload
-systemctl restart trip
-systemctl enable trip
-
 }
+
 run_cantikva() {
 export DEBIAN_FRONTEND=noninteractive
 MYIP=$(wget -qO- ipinfo.io/ip);
@@ -337,7 +294,7 @@ MYIP2="s/xxxxxxxxx/$MYIP/g";
 NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
-wget --no-check-certificate https://raw.githubusercontent.com/myzhero/v3/main/example/udp-custom/udp.sh && chmod +x udp.sh && ./udp.sh
+wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
@@ -347,7 +304,7 @@ organizationalunit=none
 commonname=none
 email=none
 # simple password minimal
-wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/SARTAMP/v5/main/password"
+wget -O /etc/pam.d/common-password "${REPO}password"
 chmod +x /etc/pam.d/common-password
 # go to root
 cd
@@ -414,7 +371,7 @@ apt -y install nginx php php-fpm php-cli php-mysql libxml-parser-perl
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/Rerechan02/last/main/nginx.conf
-wget -O /etc/nginx/conf.d/xray.conf https://raw.githubusercontent.com/SARTAMP/v5/main/xray.conf
+wget -O /etc/nginx/conf.d/xray.conf ${REPO}xray.conf
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/client.service
 sed -i "s/xxx/${nsdomain}/g" /etc/systemd/system/server.service
@@ -472,10 +429,20 @@ echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
-<br>
-<font color="blue"><b>===============================</br></font><br>
-<font color="red"><b>           YogzStore         </b></font><br>
-<font color="blue"><b>===============================</br></font><br>
+<p style="text-align:center"> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
+color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
+color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
+color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
+color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
+color='#F1006F'>▬</font><br> <font color="#F5FE00"><b> --- 卍 WELCOME TO PREMIUM YOGZ VPN TUNNEL 卐 --- </b></font><br> <font
+color='red'>! PERATURAN SERVER !</font><br> <font color='#20CDCC'><b> NO DDOS </b></font><br> <font
+color='#10C7E5'><b> NO SPAMING </b></font><br> <font color='#00C1FF'><b> NO HACKING AND CARDING </b></font><br> 
+<font color="#E51369"><b> NO TORRENT!!  </b> </font><br> <font color="#483D8B"><b> ORDER PREMIUM : wa.me/6281215360549</br> </font><br> <font color="#483D8B"><b></br></font><br> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
+color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
+color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
+color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
+color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
+color='#F1006F'>▬</font>
 END
 /etc/init.d/dropbear restart
 echo "/bin/false" >> /etc/shells
@@ -613,8 +580,7 @@ cd .acme.sh
 bash acme.sh --register-account -m rere@rerechan02.com
 bash acme.sh --issue --standalone -d $domain --force
 bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
-wget -O /etc/xray/config.json https://raw.githubusercontent.com/SARTAMP/v5/main/config.json
-
+wget -O /etc/xray/config.json ${REPO}config.json
 #ssl
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
 
@@ -716,49 +682,19 @@ rm -fr /root/*
 touch /root/.system
 history -c
 echo "1.2" > /home/ver
-echo " "
+echo ""
 clear
-figlet "Script project Fvstore" | lolcat
-echo
-echo -e "Install Berhasil dan lancar"  
-echo
-sleep 1
-echo -e "Silakan Ubah Port Login vps Dari 22 Menjadi 3303"
-echo
-sleep 1
-echo -e "Untuk membuka panel Script Masukan"
-echo
-sleep 1
+figlet "Yogzz" 
+echo -e "" 
+echo -e "Untuk membuka panel AutoSC Masukan" 
 echo -e "perintah ( menu ) tanpa tanda kurung" 
-echo 
-sleep 1
-read -p "Klik Enter Untuk Reboot"
+echo -e "" 
+read -p "Press enter untuk reboot : " ieieie 
 touch /root/system
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null 2>&1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
 rm -fr .bash_history
 reboot
-}
-
-run_notifikasi(){
-    CHATID="5795571992"
-    KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
-    URL="https://api.telegram.org/bot$KEY/sendMessage"
-    TIMEZONE=$(printf '%(%H:%M:%S)T')
-    TEXT="
-<code>────────────────────</code>
-<b>⚡AUTOSCRIPT PREMIUM⚡</b>
-<code>────────────────────</code>
-<code>ID     : </code><code>$nama</code>
-<code>Domain : </code><code>$(cat /etc/xray/domain)</code>
-<code>Time   : </code><code>$TIMEZONE</code>
-<code>Ip vps : </code><code>${ip_vps}</code>
-<code>Exp Sc : </code><code>$tanggal</code>
-<code>────────────────────</code>
-<i>Automatic Notification from Github</i>
-<i>ZheeVPN</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ🐳","url":"https://t.me/×××"},{"text":"ɪɴꜱᴛᴀʟʟ🐬","url":"https://t.me/×××"}]]}'
-curl -s --max-time 10 -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
 
 run_pensi() {
@@ -772,7 +708,7 @@ run_cantikva
 run_indo
 run_anumu
 run_xiangling
-run_notifikasi
+restart_system
 }
 
 run_pensi
