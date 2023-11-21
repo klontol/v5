@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function send-log(){
-CHATID="5795571992"
-KEY="6079069898:AAGT8hggC62cVoeKq1Q1k37sWj2Bys5NL1M"
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="
