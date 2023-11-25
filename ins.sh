@@ -441,6 +441,9 @@ rm -rf /etc/vmess/.vmess.db
     mkdir -p /etc/kyt/log/vless
     mkdir -p /etc/kyt/log/vmess
     mkdir -p /etc/kyt/log/ssh
+    mkdir -p /etc/user/vmess
+    mkdir -p /etc/user/vless
+    mkdir -p /etc/user/trojan
     chmod +x /var/log/xray
     touch /etc/xray/domain
     touch /var/log/xray/access.log
