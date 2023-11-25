@@ -22,7 +22,7 @@ NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
 TIME="10"
-CHATID="-4064299006"
+CHATID="5795571992"
 KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 
@@ -1081,6 +1081,7 @@ clear
     make_folder_xray
     pasang_domain
     pasang_ssl
+    notif_bot
     install_xray
     ssh
     udp_mini
@@ -1097,7 +1098,6 @@ clear
     menu
     profile
     enable_services
-    notif_bot
 }
 instal
 echo ""
