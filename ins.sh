@@ -809,9 +809,18 @@ function ins_backup(){
 clear
 print_install "Memasang Backup Server"
 #BackupOption
-curl https://rclone.org/install.sh | bash
+apt install rclone -y
 printf "q\n" | rclone config
 wget -O /root/.config/rclone/rclone.conf "${REPO}backup/rclone.conf"
+#Install Wondershaper
+cd /bin
+git clone  https://github.com/magnific0/wondershaper.git
+cd wondershaper
+sudo make install
+cd
+rm -rf wondershaper
+echo > /home/limit
+apt install msmtp-mta ca-certificates bsd-mailx -y
 cat<<EOF>>/etc/msmtprc
 defaults
 tls on
@@ -822,11 +831,10 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user sc.fightertunnel@gmail.com
-from sc.fightertunnel@gmail.com
-password uxiwsmmaladzsywx
+user sc.figtertunnel@gmail.com
+from sc.figtertunnel@gmail.com
+password uxiwsmmaladzsywx 
 logfile ~/.msmtp.log
-
 EOF
 chown -R www-data:www-data /etc/msmtprc
 wget -q -O /etc/ipserver "${REPO}ssh/ipserver" && bash /etc/ipserver
