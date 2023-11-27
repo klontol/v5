@@ -358,33 +358,6 @@ clear
 }
 
 clear
-#GANTI PASSWORD DEFAULT
-function notif_bot() {
-    USRSC=$(curl https://raw.githubusercontent.com/kytrx/regip/main/ip | grep $ipsaya | awk '{print $2}')
-    EXPSC=$(curl https://raw.githubusercontent.com/kytrx/regip/main/ip | grep $ipsaya | awk '{print $3}')
-    TIMEZONE=$(printf '%(%H:%M:%S)T')
-    TEXT="
-<code>────────────────────</code>
-<b>⚠️AUTOSCRIPT PREMIUM⚠️</b>
-<code>────────────────────</code>
-<code>USER   : </code><code>$USRSC</code>
-<code>DOMAIN : </code><code>$domain</code>
-<code>LINUX  : </code><code>$OS_Name</code>
-<code>DATE   : </code><code>$TIMES</code>
-<code>TIME   : </code><code>$TIMEZONE</code>
-<code>IP VPS : </code><code>$ipsaya</code>
-<code>ISP    : </code><code>$ISP</code>
-<code>CITY   : </code><code>$CITY</code>
-<code>EXP.SC : </code><code>$EXPSC</code>
-<code>────────────────────</code>
-<i>Automatic Notification From</i>
-<i>Github YSSHstore</i> 
-"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ🐳","url":"https://t.me/YSSHstore"},{"text":"ɪɴꜱᴛᴀʟʟ🐬","url":"https://t.me/info_autoscript/2"}]]}'
-
-   curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-}
-
-clear
 # Pasang SSL
 function pasang_ssl() {
 clear
@@ -404,6 +377,8 @@ print_install "Memasang SSL Pada Domain"
     /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
     ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
     chmod 777 /etc/xray/xray.key
+    # Installing Slowdns
+    wget ${REPO}slowdns/installsl.sh && chmod +x installsl.sh && ./installsl.sh
     print_success "SSL Certificate"
 }
 
@@ -441,6 +416,7 @@ rm -rf /etc/vmess/.vmess.db
     mkdir -p /etc/kyt/log/vless
     mkdir -p /etc/kyt/log/vmess
     mkdir -p /etc/kyt/log/ssh
+    mkdir -p /etc/user/ssh
     mkdir -p /etc/user/vmess
     mkdir -p /etc/user/vless
     mkdir -p /etc/user/trojan
@@ -463,7 +439,7 @@ rm -rf /etc/vmess/.vmess.db
 #Instal Xray
 function install_xray() {
 clear
-    print_install "Core Xray 1.8.1 Latest Version"
+    print_install "Core Xray 1.7.5 Latest Version"
     # install xray
     #echo -e "[ ${green}INFO$NC ] Downloading & Installing xray core"
     domainSock_dir="/run/xray";! [ -d $domainSock_dir ] && mkdir  $domainSock_dir
@@ -475,9 +451,7 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
     # // Ambil Config Server
     wget -q -O /etc/squid/squid.conf "https://github.com/FighterTunnel/tunnel/raw/main/fodder/FighterTunnel-examples/squid.conf" >/dev/null 2>&1
     wget -O /etc/xray/config.json "${REPO}xray/config.json" >/dev/null 2>&1
-    #wget -O /usr/local/bin/xray "${REPO}xray/xray.linux.64bit" >/dev/null 2>&1
     wget -O /etc/systemd/system/runn.service "${REPO}xray/runn.service" >/dev/null 2>&1
-    #chmod +x /usr/local/bin/xray
     domain=$(cat /etc/xray/domain)
     IPVS=$(cat /etc/xray/ipvps)
     print_success "Core Xray 1.8.1 Latest Version"
@@ -489,10 +463,6 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
     print_install "Memasang Konfigurasi Packet"
     wget -O /etc/haproxy/haproxy.cfg "${REPO}xray/haproxy.cfg" >/dev/null 2>&1
     wget -O /etc/nginx/conf.d/xray.conf "${REPO}xray/xray.conf" >/dev/null 2>&1
-    sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
-    sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
-    sed -i "s/xxx/${ipsaya}/g" /etc/squid/squid.conf
-    curl ${REPO}ssh/nginx.conf > /etc/nginx/nginx.conf
     
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
 
@@ -502,7 +472,7 @@ cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
     # > Create Service
     rm -rf /etc/systemd/system/xray.service.d
     cat >/etc/systemd/system/xray.service <<EOF
-Description=Yogz Xray Service
+Description=Yogz Xray Server
 Documentation=https://github.com
 After=network.target nss-lookup.target
 
@@ -625,9 +595,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart vmip
-systemctl enable vmip
 
 cat >/etc/systemd/system/vlip.service << EOF
 [Unit]
@@ -642,9 +609,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart vlip
-systemctl enable vlip
 
 cat >/etc/systemd/system/trip.service << EOF
 [Unit]
@@ -659,10 +623,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart trip
-systemctl enable trip
-#SERVICE LIMIT QUOTA
 
 #SERVICE VMESS
 cat >/etc/systemd/system/qmv.service << EOF
@@ -678,9 +638,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart qmv
-systemctl enable qmv
 
 #SERVICE VLESS
 cat >/etc/systemd/system/qmvl.service << EOF
@@ -696,9 +653,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart qmvl
-systemctl enable qmvl
 
 #SERVICE TROJAN
 cat >/etc/systemd/system/qmtr.service << EOF
@@ -714,9 +668,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl restart qmtr
-systemctl enable qmtr
+
 # // Installing UDP Mini
 mkdir -p /usr/local/kyt/
 wget -q -O /usr/local/kyt/udp-mini "${REPO}badvpn/udp-mini"
@@ -737,14 +689,6 @@ systemctl stop udp-mini-3
 systemctl enable udp-mini-3
 systemctl start udp-mini-3
 print_success "Limit Quota Service"
-}
-
-function ssh_slow(){
-clear
-# // Installing UDP Mini
-print_install "Memasang modul SlowDNS Server"
-    wget ${REPO}slowdns/installsl.sh && chmod +x installsl.sh && ./installsl.sh
- print_success "SlowDNS"
 }
 
 clear
@@ -807,12 +751,10 @@ print_success "OpenVPN"
 
 function ins_backup(){
 clear
-print_install "Memasang Backup Server"
-#BackupOption
-curl https://rclone.org/install.sh | bash
-printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "${REPO}backup/rclone.conf"
-cat >/etc/msmtprc <<EOF
+    curl https://rclone.org/install.sh | bash
+    printf "q\n" | rclone config
+    wget -O /root/.config/rclone/rclone.conf "${REPO}backup/rclone.conf"
+    cat >/etc/msmtprc <<EOF
 defaults
 tls on
 tls_starttls on
@@ -826,8 +768,12 @@ user sc.fightertunnel@gmail.com
 from sc.fightertunnel@gmail.com
 password uxiwsmmaladzsywx
 logfile ~/.msmtp.log
+
 EOF
-chown -R www-data:www-data /etc/msmtprc
+print_install "Memasang Backup Server"
+
+
+
 wget -q -O /etc/ipserver "${REPO}ssh/ipserver" && bash /etc/ipserver
 print_success "Backup Server"
 }
@@ -894,11 +840,6 @@ print_install "Menginstall ePro WebSocket Proxy"
     chmod +x /etc/systemd/system/ws.service
     chmod +x /usr/bin/ws
     chmod 644 /usr/bin/tun.conf
-systemctl disable ws
-systemctl stop ws
-systemctl enable ws
-systemctl start ws
-systemctl restart ws
 wget -q -O /usr/local/share/xray/geosite.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat" >/dev/null 2>&1
 wget -q -O /usr/local/share/xray/geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" >/dev/null 2>&1
 wget -O /usr/sbin/ftvpn "${REPO}ws/ftvpn" >/dev/null 2>&1
@@ -1055,18 +996,71 @@ print_success "Menu Packet"
 }
 
 # Restart layanan after install
-function enable_services(){
+function restart_system(){
 clear
 print_install "Enable Service"
+    USRSC=$(curl https://raw.githubusercontent.com/kytrx/regip/main/ip | grep $ipsaya | awk '{print $2}')
+    EXPSC=$(curl https://raw.githubusercontent.com/kytrx/regip/main/ip | grep $ipsaya | awk '{print $3}')
+    TIMEZONE=$(printf '%(%H:%M:%S)T')
+    TEXT="
+<code>────────────────────</code>
+<b> ⚠️AUTOSCRIPT PREMIUM⚠️</b>
+<code>────────────────────</code>
+<code>SYS OS : </code><code>$OS_Name</code>
+<code>USER   : </code><code>$USRSC</code>
+<code>DOMAIN : </code><code>$domain</code>
+<code>DATE   : </code><code>$TIMES</code>
+<code>TIME   : </code><code>$TIMEZONE</code>
+<code>IP VPS : </code><code>$ipsaya</code>
+<code>ISP    : </code><code>$ISP</code>
+<code>CITY   : </code><code>$CITY</code>
+<code>EXP.SC : </code><code>$EXPSC</code>
+<code>────────────────────</code>
+<i>Automatic Notification From</i>
+<i>Github YSSHstore</i> 
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ🐳","url":"https://t.me/YSSHstore"},{"text":"ɪɴꜱᴛᴀʟʟ🐬","url":"https://t.me/info_autoscript/2"}]]}'
+    curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+    sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
+    sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
+    sed -i "s/xxx/${ipsaya}/g" /etc/squid/squid.conf
+    chown -R www-data:www-data /etc/msmtprc
     systemctl daemon-reload
+    
+    systemctl enable client
+    systemctl enable server
+    systemctl enable netfilter-persistent
+    systemctl enable ws
+    systemctl enable haproxy
+    systemctl enable vmip
+    systemctl enable vlip
+    systemctl enable trip
+    systemctl enable qmv
+    systemctl enable qmvl
+    systemctl enable qmtr
+    systemctl start client
+    systemctl start server
+    systemctl start haproxy
     systemctl start netfilter-persistent
-    systemctl enable --now rc-local
-    systemctl enable --now cron
-    systemctl enable --now netfilter-persistent
     systemctl restart nginx
     systemctl restart xray
+    systemctl restart sshd
+    systemctl restart rc-local
+    systemctl restart client
+    systemctl restart server
+    systemctl restart dropbear
+    systemctl restart ws
+    systemctl restart openvpn
     systemctl restart cron
     systemctl restart haproxy
+    systemctl restart netfilter-persistent
+    systemctl restart ws
+    systemctl restart udp-custom
+    systemctl restart vmip
+    systemctl restart vlip
+    systemctl restart trip
+    systemctl restart qmv
+    systemctl restart qmvl
+    systemctl restart qmtr
     print_success "Enable Service"
     clear
 }
@@ -1080,11 +1074,9 @@ clear
     make_folder_xray
     pasang_domain
     pasang_ssl
-    notif_bot
     install_xray
     ssh
     udp_mini
-    ssh_slow
     ins_SSHD
     ins_dropbear
     ins_vnstat
@@ -1096,7 +1088,7 @@ clear
     ins_restart
     menu
     profile
-    enable_services
+    restart_system
 }
 instal
 echo ""
