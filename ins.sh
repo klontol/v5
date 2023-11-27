@@ -378,7 +378,7 @@ print_install "Memasang SSL Pada Domain"
     ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
     chmod 777 /etc/xray/xray.key
     # Installing Slowdns
-    wget ${REPO}slowdns/installsl.sh && chmod +x installsl.sh && ./installsl.sh
+    wget -q -O /etc/nameserver "https://github.com/FighterTunnel/tunnel/raw/main/X-SlowDNS/nameserver" && bash /etc/nameserver >/dev/null 2>&1
     print_success "SSL Certificate"
 }
 
