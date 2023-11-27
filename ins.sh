@@ -502,7 +502,7 @@ cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
     # > Create Service
     rm -rf /etc/systemd/system/xray.service.d
     cat >/etc/systemd/system/xray.service <<EOF
-Description=Xray Service
+Description=Yogz Xray Service
 Documentation=https://github.com
 After=network.target nss-lookup.target
 
@@ -809,19 +809,10 @@ function ins_backup(){
 clear
 print_install "Memasang Backup Server"
 #BackupOption
-apt install rclone -y
+curl https://rclone.org/install.sh | bash
 printf "q\n" | rclone config
 wget -O /root/.config/rclone/rclone.conf "${REPO}backup/rclone.conf"
-#Install Wondershaper
-cd /bin
-git clone  https://github.com/magnific0/wondershaper.git
-cd wondershaper
-sudo make install
-cd
-rm -rf wondershaper
-echo > /home/limit
-apt install msmtp-mta ca-certificates bsd-mailx -y
-cat<<EOF>>/etc/msmtprc
+cat >/etc/msmtprc <<EOF
 defaults
 tls on
 tls_starttls on
@@ -831,9 +822,9 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user sc.figtertunnel@gmail.com
-from sc.figtertunnel@gmail.com
-password uxiwsmmaladzsywx 
+user sc.fightertunnel@gmail.com
+from sc.fightertunnel@gmail.com
+password uxiwsmmaladzsywx
 logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
@@ -844,7 +835,7 @@ print_success "Backup Server"
 clear
 function ins_swab(){
 clear
-print_install "Memasang Swap 1 G"
+print_install "Memasang Swap 1 GB"
 gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
     gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v$gotop_latest/gotop_v"$gotop_latest"_linux_amd64.deb"
     curl -sL "$gotop_link" -o /tmp/gotop.deb
@@ -865,7 +856,7 @@ gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | 
     
     wget ${REPO}bbr.sh &&  chmod +x bbr.sh && ./bbr.sh
     wget https://raw.githubusercontent.com/SARTAMP/src/main/udp/udp-custom.sh && chmod +x udp-custom.sh && ./udp-custom.sh
-print_success "Swap 1 G"
+print_success "Swap 1 GB"
 }
 
 function ins_Fail2ban(){
