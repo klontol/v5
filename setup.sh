@@ -2,21 +2,21 @@
 # // REPO
 REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
 clear
+
 restart_system() {
-TIME="10"
+TIME="5"
 CHATID="5795571992"
 KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-echo -e ""
 TEXT="
-<code>Info Install Script V1.0</code>
+<b>INFO INSTALL SCRIPT STABLE V1.0</b>
 ==================================
 <code>IP VPS     :</code> <code>$ip_vps</code>
 <code>ISP        :</code> <code>$(cat /root/.myisp)</code>
 <code>CITY       :</code> <code>$(cat /root/.mycity)</code>
-<code>Domain     :</code> <code>$(cat /etc/xray/domain)</code>
-<code>Client Name:</code> <code>$nama</code>
-<code>Expired    :</code> <code>$tanggal</code>
+<code>DOMAIN     :</code> <code>$(cat /etc/xray/domain)</code>
+<code>CLIENT     :</code> <code>$nama</code>
+<code>EXPIRED    :</code> <code>$tanggal</code>
 <code>==================================</code>
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
