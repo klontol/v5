@@ -2,21 +2,21 @@
 # // REPO
 REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
 clear
-
 restart_system() {
-TIME="5"
+TIME="10"
 CHATID="5795571992"
 KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
+echo -e ""
 TEXT="
-<b>INFO INSTALL SCRIPT STABLE V1.0</b>
+<code>Info Install Script V1.0</code>
 ==================================
 <code>IP VPS     :</code> <code>$ip_vps</code>
 <code>ISP        :</code> <code>$(cat /root/.myisp)</code>
 <code>CITY       :</code> <code>$(cat /root/.mycity)</code>
-<code>DOMAIN     :</code> <code>$(cat /etc/xray/domain)</code>
-<code>CLIENT     :</code> <code>$nama</code>
-<code>EXPIRED    :</code> <code>$tanggal</code>
+<code>Domain     :</code> <code>$(cat /etc/xray/domain)</code>
+<code>Client Name:</code> <code>$nama</code>
+<code>Expired    :</code> <code>$tanggal</code>
 <code>==================================</code>
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
@@ -273,8 +273,10 @@ rm -fr service.zip
 systemctl daemon-reload
 systemctl enable ws-stunnel
 systemctl enable ws-nontls
+systemctl enable sship
 systemctl restart ws-stunnel
 systemctl restart ws-nontls
+systemctl restart sship
 ###slowdns
 mkdir /etc/slowdns
 cd /etc/slowdns
@@ -295,7 +297,6 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
-wget ${REPO}set-br.sh && chmod +x set-br.sh && ./set-br.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
@@ -543,57 +544,7 @@ clear
 }
 
 run_indo() {
-wget -q -O /usr/local/sbin/quota "${REPO}quota"
-chmod +x /usr/local/sbin/quota
-cd /usr/local/sbin/
-sed -i 's/\r//' quota
-cd
 clear
-#SERVICE VMESS
-cat >/etc/systemd/system/qmv.service << EOF
-[Unit]
-Description=My
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/local/sbin/quota vmess
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-#SERVICE VLESS
-cat >/etc/systemd/system/qmvl.service << EOF
-[Unit]
-Description=My 
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/local/sbin/quota vless
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-#SERVICE TROJAN
-cat >/etc/systemd/system/qmtr.service << EOF
-[Unit]
-Description=My 
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/local/sbin/quota trojan
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
 domain=$(cat /etc/xray/domain)
 apt install iptables iptables-persistent -y
 apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y 
@@ -722,13 +673,11 @@ systemctl enable client
 systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
-systemctl enable qmv
-systemctl enable qmvl
-systemctl enable qmtr
+systemctl enable quota
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel qmv qmvl qmtr
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
