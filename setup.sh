@@ -287,6 +287,11 @@ chmod +x *
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
+wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}limit-ip-ssh"
+chmod +x /usr/local/bin/*
+cd /usr/local/bin
+sed -i 's/\r//' limit-ip-ssh
+cd
 }
 
 run_cantikva() {
@@ -514,6 +519,7 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 # download script
+echo "*/1 * * * root limit-ip-ssh" >> /etc/crontab
 echo "0 0 * * * root clearlog && reboot" >> /etc/crontab
 echo "0 0 * * * root xp" >> /etc/crontab
 # remove unnecessary files
