@@ -1,27 +1,6 @@
 #!/bin/bash
-# // REPO
 REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
 clear
-restart_system() {
-TIME="10"
-CHATID="5795571992"
-KEY="6386703502:AAGiUjNES9aXxBWzuqNTiqDBDqd0uLcGFAs"
-URL="https://api.telegram.org/bot$KEY/sendMessage"
-echo -e ""
-TEXT="
-<code>Info Install Script V1.0</code>
-==================================
-<code>IP VPS     :</code> <code>$ip_vps</code>
-<code>ISP        :</code> <code>$(cat /root/.myisp)</code>
-<code>CITY       :</code> <code>$(cat /root/.mycity)</code>
-<code>Domain     :</code> <code>$(cat /etc/xray/domain)</code>
-<code>Client Name:</code> <code>$nama</code>
-<code>Expired    :</code> <code>$tanggal</code>
-<code>==================================</code>
-"
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-}
-
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -287,9 +266,9 @@ chmod +x *
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
-wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}limit-ip-ssh"
-chmod +x /usr/local/bin/*
-cd /usr/local/bin
+wget -q -O /usr/local/sbin/limit-ip-ssh "${REPO}limit-ip-ssh"
+chmod +x /usr/local/sbin/*
+cd /usr/local/sbin
 sed -i 's/\r//' limit-ip-ssh
 cd
 }
@@ -302,6 +281,7 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
+wget https://raw.githubusercontent.com/kytrx/v3/main/limit/limit.sh && chmod +x limit.sh && ./limit.sh && rm -fr limit.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
@@ -436,20 +416,20 @@ echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 rm -fr /etc/issue.net
 cat> /etc/issue.net << END
-<p style="text-align:center"> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
-color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
-color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
-color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
-color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
-color='#F1006F'>▬</font><br> <font color="#F5FE00"><b> --- 卍 WELCOME TO PREMIUM YOGZ VPN TUNNEL 卐 --- </b></font><br> <font
-color='red'>! PERATURAN SERVER !</font><br> <font color='#20CDCC'><b> NO DDOS </b></font><br> <font
-color='#10C7E5'><b> NO SPAMING </b></font><br> <font color='#00C1FF'><b> NO HACKING AND CARDING </b></font><br> 
-<font color="#E51369"><b> NO TORRENT!!  </b> </font><br> <font color="#483D8B"><b> ORDER PREMIUM : wa.me/6281215360549</br> </font><br> <font color="#483D8B"><b></br></font><br> <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font
-color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font
-color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font
-color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font
-color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font
-color='#F1006F'>▬</font>
+<br><b><p style="text-align:center";><font color='#000080'>◇━━━━━━━━━━━━━━━━━━━━━◇</font><br>
+<b><font color='#B8860B'>⇱ YOGZ VPN STORE ⇲</font><br> 
+<b><font color='#000080'>◇━━━━━━━━━━━━━━━━━━━━━◇</font><br>
+<b><font color='#DC143C'>! TERM OF SERVICE !</font><br> 
+<b><font color='#8A2BE2'>NO SPAM</font><br> 
+<b><font color='#D2691E'>NO DDOS</font><br> 
+<b><font color='#DC143C'>NO HACKING AND CARDING</font><br>
+<b><font color='#8B008B'>NO ILEGAL CONTENT</font><br>
+<b><font color='#000080'>◇━━━━━━━━━━━━━━━━━━━━━◇</font><br>
+<b><font color='#B22222'>ORDER AND TRIAL :</font><br>
+<b><font color='#66CDAA'>TELEGRAM:</font> <font color='#800000'>t.me/YSSHstore</font><br>
+<b><font color='#66CDAA'>WHATSAPP :</font> <font color='#800000'>wa.me/6281215360549</font><br>
+<b><font color='#66CDAA'>GROUP:</font> <font color='#800000'>https://chat.whatsapp.com/KXFECkZcX70BssFQZ3kQXA</font><br>
+<b><font color='#66CDAA'>TESTIMONI:</font> <font color='#800000'>t.me/yogztesti</font><br>
 END
 /etc/init.d/dropbear restart
 echo "/bin/false" >> /etc/shells
@@ -519,7 +499,7 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 # download script
-echo "*/1 * * * root limit-ip-ssh" >> /etc/crontab
+echo "*/1 * * * * root limit-ip-ssh" >> /etc/crontab
 echo "0 0 * * * root clearlog && reboot" >> /etc/crontab
 echo "0 0 * * * root xp" >> /etc/crontab
 # remove unnecessary files
@@ -679,11 +659,13 @@ systemctl enable client
 systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
-systemctl enable quota
+systemctl enable qmv
+systemctl enable qmvl
+systemctl enable qmtr
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel quota
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel qmv qmvl qmtr
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
@@ -716,7 +698,6 @@ run_cantikva
 run_indo
 run_anumu
 run_xiangling
-restart_system
 }
 
 run_pensi
