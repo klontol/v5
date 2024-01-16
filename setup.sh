@@ -18,6 +18,8 @@ fi
 
 run_peli() {
 #Create Folder
+mkdir /etc/per
+mkdir /etc/id
 mkdir /etc/slowdns
 mkdir /etc/xray
 mkdir /etc/websocket
