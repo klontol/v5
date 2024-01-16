@@ -1,39 +1,11 @@
 #!/bin/bash
-exitsc="\033[0m"
-y="\033[1;93m"
-j="\033[0;33m"
-function lane() {
-echo -e "${y}────────────────────────────────────────────${exitsc}"
-}
-url_izin="https://raw.githubusercontent.com/BvsshXyz/izinsc/main/ip"
-ipsaya=$(curl -sS ipv4.icanhazip.com)
-data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date +"%Y-%m-%d" -d "$data_server")
-checking_sc() {
-useexp=$(wget -qO- $url_izin | grep $ipsaya | awk '{print $3}')
-if [[ $date_list < $useexp ]]; then
-echo -ne
-else
-lane
-echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          ${exitsc}"
-lane
-echo -e ""
-echo -e "            \033[0;35mPERMISSION DENIED !${exitsc}"
-echo -e "   ${j}Your VPS${exitsc} $ipsaya ${j}Has been Banned${exitsc}"
-echo -e "     ${j}Buy access permissions for scripts${exitsc}"
-echo -e "             ${j}Contact Admin :${exitsc}"
-echo -e "      \033[0;36mWhatsapp${exitsc} wa.me/6283150032857"
-lane
-exit
-fi
-}
-checking_sc
+clear
 
-REPO="https://raw.githubusercontent.com/BvsshXyz/vvip/main/"
-wget -q -O /etc/xray/limit.vmess "${REPO}limit/vmess" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.vless "${REPO}limit/vless" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.trojan "${REPO}limit/trojan" >/dev/null 2>&1
-wget -q -O /etc/xray/limit.shadowsocks "${REPO}limit/shadowsocks" >/dev/null 2>&1
+REPO="https://raw.githubusercontent.com/SARTAMP/v5/main/"
+wget -q -O /etc/xray/limit.vmess "${REPO}/vmess" >/dev/null 2>&1
+wget -q -O /etc/xray/limit.vless "${REPO}/vless" >/dev/null 2>&1
+wget -q -O /etc/xray/limit.trojan "${REPO}/trojan" >/dev/null 2>&1
+wget -q -O /etc/xray/limit.shadowsocks "${REPO}/shadowsocks" >/dev/null 2>&1
 chmod +x /etc/xray/limit.vmess
 chmod +x /etc/xray/limit.vless
 chmod +x /etc/xray/limit.trojan
@@ -43,7 +15,7 @@ chmod +x /etc/xray/limit.shadowsocks
 cat >/etc/systemd/system/limitvmess.service << EOF
 [Unit]
 Description=Limit Usage Xray Service
-Documentation=https://github.com/fv-store
+Documentation=https://github.com/YSSHstore
 After=syslog.target network-online.target
 
 [Service]
@@ -59,7 +31,7 @@ EOF
 cat >/etc/systemd/system/limitvless.service << EOF
 [Unit]
 Description=Limit Usage Xray Service
-Documentation=https://github.com/fv-store
+Documentation=https://github.com/YSSHstore
 After=syslog.target network-online.target
 
 [Service]
@@ -75,7 +47,7 @@ EOF
 cat >/etc/systemd/system/limittrojan.service << EOF
 [Unit]
 Description=Limit Usage Xray Service
-Documentation=https://github.com/fv-store
+Documentation=https://github.com/YSSHstore
 After=syslog.target network-online.target
 
 [Service]
@@ -91,7 +63,7 @@ EOF
 cat >/etc/systemd/system/limitshadowsocks.service << EOF
 [Unit]
 Description=Limit Usage Xray Service
-Documentation=https://github.com/fv-store
+Documentation=https://github.com/YSSHstore
 After=syslog.target network-online.target
 
 [Service]
@@ -110,7 +82,7 @@ systemctl enable --now limittrojan
 systemctl enable --now limitshadowsocks
 
 cd
-wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}limit/limit-ip-ssh"
+wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}/limit-ip-ssh"
 chmod +x /usr/local/bin/*
 cd /usr/local/bin
 sed -i 's/\r//' limit-ip-ssh
@@ -118,7 +90,7 @@ cd
 clear
 
 cd
-wget -q -O /usr/bin/limit-ip "${REPO}limit/limit-ip"
+wget -q -O /usr/bin/limit-ip "${REPO}/limit-ip"
 chmod +x /usr/bin/*
 cd /usr/bin
 sed -i 's/\r//' limit-ip
@@ -127,7 +99,7 @@ clear
 # // SERVICE LIMIT IP VMESS
 cat >/etc/systemd/system/vmip.service << EOF
 [Unit]
-Description=https://github.com/fv-store
+Description=https://github.com/YSSHstore
 ProjectAfter=network.target
 
 [Service]
@@ -142,7 +114,7 @@ EOF
 # // SERVICE LIMIT IP VLESS
 cat >/etc/systemd/system/vlip.service << EOF
 [Unit]
-Description=https://github.com/fv-store
+Description=https://github.com/YSSHstore
 ProjectAfter=network.target
 
 [Service]
@@ -157,7 +129,7 @@ EOF
 # // SERVICE LIMIT TROJAN
 cat >/etc/systemd/system/trip.service << EOF
 [Unit]
-Description=https://github.com/fv-store
+Description=https://github.com/YSSHstore
 ProjectAfter=network.target
 
 [Service]
@@ -172,7 +144,7 @@ EOF
 # // SERVICE LIMIT SSH
 cat >/etc/systemd/system/sship.service << EOF
 [Unit]
-Description=https://github.com/fv-store
+Description=https://github.com/YSSHstore
 ProjectAfter=network.target
 
 [Service]
@@ -194,4 +166,4 @@ systemctl enable vlip
 systemctl restart trip
 systemctl enable trip
 
-rm -rf /root/fv-tunnel-user-limit.sh
+rm -rf /root/user-limit.sh
