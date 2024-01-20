@@ -645,6 +645,7 @@ chown root:root /swapfile
 chmod 0600 /swapfile >/dev/null 2>&1
 swapon /swapfile >/dev/null 2>&1
 sed -i '$ i\/swapfile      swap swap   defaults    0 0' /etc/fstab
+wget ${REPO}user-limit.sh && chmod +x user-limit.sh && ./user-limit.sh
 clear
 }
 
@@ -661,13 +662,10 @@ systemctl enable client
 systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
-systemctl enable qmv
-systemctl enable qmvl
-systemctl enable qmtr
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel qmv qmvl qmtr
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
