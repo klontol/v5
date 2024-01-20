@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 
 REPO="https://raw.githubusercontent.com/SARTAMP/v5/main/"
 wget -q -O /etc/xray/limit.vmess "${REPO}/vmess" >/dev/null 2>&1
@@ -144,16 +143,16 @@ EOF
 # // SERVICE LIMIT SSH
 cat >/etc/systemd/system/sship.service << EOF
 [Unit]
-Description=https://github.com/YSSHstore
-ProjectAfter=network.target
-
+Description=My
+After=network.target
 [Service]
-WorkingDirectory=/root
 ExecStart=/usr/local/bin/limit-ip-ssh
 Restart=always
-
+RestartSec=3
+StartLimitIntervalSec=60
+StartLimitBurst=5
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
 EOF
 
 systemctl daemon-reload
