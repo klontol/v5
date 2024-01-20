@@ -36,9 +36,9 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user sc.figtertunnel@gmail.com
-from sc.figtertunnel@gmail.com
-password uxiwsmmaladzsywx
+user backupsmtp93@gmail.com
+from backupsmtp93@gmail.com
+password sdallofkbpuhbtoa 
 logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
