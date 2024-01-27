@@ -283,7 +283,7 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
-wget https://raw.githubusercontent.com/kytrx/v3/main/limit/limit.sh && chmod +x limit.sh && ./limit.sh && rm -fr limit.sh
+wget ${REPO}user-limit.sh && chmod +x user-limit.sh && ./user-limit.sh && rm -fr user-limit.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
@@ -577,7 +577,7 @@ cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
 # / / Installation Xray Service
 cat > /etc/systemd/system/xray.service << END
 [Unit]
-Description=Xray by FunnyVPN
+Description=Xray by YogzVPN
 Documentation=https://indo-ssh.com
 After=network.target nss-lookup.target
 
@@ -645,7 +645,6 @@ chown root:root /swapfile
 chmod 0600 /swapfile >/dev/null 2>&1
 swapon /swapfile >/dev/null 2>&1
 sed -i '$ i\/swapfile      swap swap   defaults    0 0' /etc/fstab
-wget ${REPO}user-limit.sh && chmod +x user-limit.sh && ./user-limit.sh
 clear
 }
 
