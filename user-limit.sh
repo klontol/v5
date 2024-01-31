@@ -80,11 +80,11 @@ systemctl enable --now limitvless
 systemctl enable --now limittrojan
 systemctl enable --now limitshadowsocks
 
-cd
-wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}/limit-ip-ssh"
-chmod +x /usr/local/bin/*
-cd /usr/local/bin
-sed -i 's/\r//' limit-ip-ssh
+#cd
+#wget -q -O /usr/local/bin/limit-ip-ssh "${REPO}/limit-ip-ssh"
+#chmod +x /usr/local/bin/*
+#cd /usr/local/bin
+#sed -i 's/\r//' limit-ip-ssh
 cd
 clear
 
@@ -140,24 +140,8 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-# // SERVICE LIMIT SSH
-cat >/etc/systemd/system/sship.service << EOF
-[Unit]
-Description=My
-After=network.target
-[Service]
-ExecStart=/usr/local/bin/limit-ip-ssh
-Restart=always
-RestartSec=3
-StartLimitIntervalSec=60
-StartLimitBurst=5
-[Install]
-WantedBy=default.target
-EOF
-
 systemctl daemon-reload
-systemctl restart sship
-systemctl enable sship
+
 systemctl restart vmip
 systemctl enable vmip
 systemctl restart vlip
