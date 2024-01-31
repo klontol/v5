@@ -268,6 +268,57 @@ chmod +x *
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
+wget -q -O /usr/bin/limit-ip "${REPO}limit/limit-ip"
+chmod +x /usr/bin/*
+cd /usr/bin
+sed -i 's/\r//' limit-ip
+cd
+clear
+# // SERVICE LIMIT IP VMESS
+cat >/etc/systemd/system/vmip.service << EOF
+[Unit]
+Description=https://github.com/yogz-store
+ProjectAfter=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limit-ip vmip
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# // SERVICE LIMIT IP VLESS
+cat >/etc/systemd/system/vlip.service << EOF
+[Unit]
+Description=https://github.com/yogz-store
+ProjectAfter=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limit-ip vlip
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# // SERVICE LIMIT TROJAN
+cat >/etc/systemd/system/trip.service << EOF
+[Unit]
+Description=https://github.com/yogz-store
+ProjectAfter=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limit-ip trip
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+cd
 }
 
 run_cantikva() {
@@ -496,7 +547,6 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 # download script
-echo "*/1 * * * * root limit-ip-ssh" >> /etc/crontab
 echo "0 0 * * * root clearlog && reboot" >> /etc/crontab
 echo "0 0 * * * root xp" >> /etc/crontab
 # remove unnecessary files
@@ -656,10 +706,14 @@ systemctl enable client
 systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
+systemctl enable vmip
+systemctl enable vlip
+systemctl enable trip
+
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel vmip vlip trip
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*
