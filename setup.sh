@@ -268,11 +268,6 @@ chmod +x *
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
-wget -q -O /usr/local/sbin/limit-ip-ssh "${REPO}limit-ip-ssh"
-chmod +x /usr/local/sbin/*
-cd /usr/local/sbin
-sed -i 's/\r//' limit-ip-ssh
-cd
 }
 
 run_cantikva() {
@@ -283,7 +278,7 @@ NET=$(ip -o $ANU -4 route show to default | awk '{print $5}');
 source /etc/os-release
 ver=$VERSION_ID
 wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh && rm -fr udp.sh
-wget ${REPO}user-limit.sh && chmod +x user-limit.sh && ./user-limit.sh && rm -fr user-limit.sh
+wget https://raw.githubusercontent.com/kytrx/v3/main/limit/limit.sh && chmod +x limit.sh && ./limit.sh && rm -fr limit.sh
 #detail nama perusahaan
 country=ID
 state=Indonesia
