@@ -1,5 +1,5 @@
 #!/bin/bash
-REPO="https://raw.githubusercontent.com/Sartamp/v5/main/"
+REPO="https://raw.githubusercontent.com/klontol/v5/main/"
 clear
 run_eula() {
 if [ "${EUID}" -ne 0 ]; then
@@ -171,7 +171,7 @@ run_ei() {
   sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null 2>&1
   
   # Link izin IP VPS
-  url_izin='https://raw.githubusercontent.com/SARTAMP/v5/main/izin.txt'
+  url_izin='https://raw.githubusercontent.com/klontol/v5/main/izin.txt'
 
   # Mendapatkan IP VPS saat ini
   ip_vps=$(curl -s ifconfig.me)
@@ -268,56 +268,10 @@ chmod +x *
 ./dnstt-server -gen-key -pubkey-file server.pub
 rm -rf dns.zip
 cd
-wget -q -O /usr/bin/limit-ip "${REPO}limit/limit-ip"
-chmod +x /usr/bin/*
-cd /usr/bin
-sed -i 's/\r//' limit-ip
-cd
-clear
-# // SERVICE LIMIT IP VMESS
-cat >/etc/systemd/system/vmip.service << EOF
-[Unit]
-Description=https://github.com/yogz-store
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip vmip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# // SERVICE LIMIT IP VLESS
-cat >/etc/systemd/system/vlip.service << EOF
-[Unit]
-Description=https://github.com/yogz-store
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip vlip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# // SERVICE LIMIT TROJAN
-cat >/etc/systemd/system/trip.service << EOF
-[Unit]
-Description=https://github.com/yogz-store
-ProjectAfter=network.target
-
-[Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/limit-ip trip
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
+wget -q -O /usr/local/sbin/limit-ip-ssh "${REPO}limit-ip-ssh"
+chmod +x /usr/local/sbin/*
+cd /usr/local/sbin
+sed -i 's/\r//' limit-ip-ssh
 cd
 }
 
@@ -547,6 +501,7 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 # download script
+echo "0 0 * * * root backup" >> /etc/crontab
 echo "0 0 * * * root clearlog && reboot" >> /etc/crontab
 echo "0 0 * * * root xp" >> /etc/crontab
 # remove unnecessary files
@@ -622,7 +577,7 @@ cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/funny.pem
 # / / Installation Xray Service
 cat > /etc/systemd/system/xray.service << END
 [Unit]
-Description=Xray by YogzVPN
+Description=Xray by FunnyVPN
 Documentation=https://indo-ssh.com
 After=network.target nss-lookup.target
 
@@ -706,14 +661,13 @@ systemctl enable client
 systemctl enable server
 systemctl enable ws-nontls
 systemctl enable ws-stunnel
-systemctl enable vmip
-systemctl enable vlip
-systemctl enable trip
-
+systemctl enable qmv
+systemctl enable qmvl
+systemctl enable qmtr
 ##restart
 systemctl restart nginx
 systemctl restart ssh
-systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel vmip vlip trip
+systemctl restart badvpn1 badvpn2 badvpn3 client server ws-nontls ws-stunnel qmv qmvl qmtr
 clear
 rm -fr /root/.bash-history
 rm -fr /root/*

@@ -30,7 +30,7 @@ fun_bar() {
     tput cnorm
 }
 res1() {
-    wget https://raw.githubusercontent.com/SARTAMP/v5/main/menu.zip
+    wget https://raw.githubusercontent.com/klontol/v5/main/menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
@@ -41,14 +41,14 @@ res1() {
 netfilter-persistent
 clear
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e " \e[1;97;101m             UPDATE SCRIPT               \e[0m"
+echo -e " \e[1;97;101m          UPDATE SCRIPT       \e[0m"
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e ""
 echo -e "  \033[1;91m Update Script Service\033[1;37m"
 fun_bar 'res1'
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "Back to menu 2 sec"
-sleep 2
+echo -e ""
+read -n 1 -s -r -p "Press [ Enter ] to back on menu"
 menu
 
 ###########- COLOR CODE -##############

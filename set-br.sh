@@ -14,7 +14,7 @@ LIGHT='\033[0;37m'
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "Checking VPS"
 # Link Hosting Kalian
-repo="raw.githubusercontent.com/SARTAMP/v5/main"
+repo="raw.githubusercontent.com/klontol/v5/main"
 
 apt install rclone -y
 printf "q\n" | rclone config
@@ -36,9 +36,9 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user backupsmtp93@gmail.com
-from backupsmtp93@gmail.com
-password sdallofkbpuhbtoa 
+user kimunakiko@gmail.com
+from kimunakiko@gmail.com
+password nzlm dtag qpbl mrmf
 logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
